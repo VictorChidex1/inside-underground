@@ -1,0 +1,2711 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2870
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\froman\fcharset0 Times-Bold;\f1\fswiss\fcharset0 Helvetica;\f2\froman\fcharset0 Times-Roman;
+\f3\froman\fcharset0 TimesNewRomanPSMT;\f4\fmodern\fcharset0 Courier;\f5\fnil\fcharset0 Menlo-Regular;
+\f6\fmodern\fcharset0 Courier-Bold;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red109\green109\blue109;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\cssrgb\c50196\c50196\c50196;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid101\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid2}
+{\list\listtemplateid3\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid201\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid3}
+{\list\listtemplateid4\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid301\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid4}
+{\list\listtemplateid5\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid401\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid5}
+{\list\listtemplateid6\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid501\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid6}
+{\list\listtemplateid7\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid601\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid7}
+{\list\listtemplateid8\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid701\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid8}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}{\listoverride\listid4\listoverridecount0\ls4}{\listoverride\listid5\listoverridecount0\ls5}{\listoverride\listid6\listoverridecount0\ls6}{\listoverride\listid7\listoverridecount0\ls7}{\listoverride\listid8\listoverridecount0\ls8}}
+\margl1440\margr1440\vieww23120\viewh14940\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\b\fs44 \cf0 \expnd0\expndtw0\kerning0
+Payment Architecture & State Machine FOR 
+\f1\b0\fs24 \kerning1\expnd0\expndtw0 Inside Underground
+\f0\b\fs44 \expnd0\expndtw0\kerning0
+\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 Responsible for:\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls1\ilvl0\cf0 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Creating payment requests\
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Communicating securely with NOWPayments\
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Receiving IPNs\
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Verifying IPN signatures\
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Validating payment information\
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Mapping provider states to application states\
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Preventing duplicate processing\
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Updating Firestore\
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Activating accounts/access\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Firestore\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 Responsible for:\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls2\ilvl0\cf0 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Users\
+\ls2\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Products\
+\ls2\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Orders\
+\ls2\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Payments\
+\ls2\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Entitlements/access\
+\ls2\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Payment audit events\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 React\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 Responsible for:\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls3\ilvl0\cf0 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Registration UI\
+\ls3\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Checkout initiation\
+\ls3\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Redirecting customers\
+\ls3\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Displaying payment status\
+\ls3\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Displaying account state\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f0\b \cf0 React must never be responsible for determining whether a payment succeeded.
+\f2\b0 \
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 2. Payment Provider Flow\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 For this project, use the 
+\f0\b NOWPayments hosted invoice flow
+\f2\b0 .\
+The documented flow is:\
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+\pard\pardeftab720\sa240\partightenfactor0
+\cf0 Responsible for:\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls4\ilvl0\cf0 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Creating payment requests\
+\ls4\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Communicating securely with NOWPayments\
+\ls4\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Receiving IPNs\
+\ls4\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Verifying IPN signatures\
+\ls4\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Validating payment information\
+\ls4\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Mapping provider states to application states\
+\ls4\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Preventing duplicate processing\
+\ls4\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Updating Firestore\
+\ls4\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Activating accounts/access\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Firestore\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 Responsible for:\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls5\ilvl0\cf0 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Users\
+\ls5\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Products\
+\ls5\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Orders\
+\ls5\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Payments\
+\ls5\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Entitlements/access\
+\ls5\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Payment audit events\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 React\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 Responsible for:\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls6\ilvl0\cf0 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Registration UI\
+\ls6\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Checkout initiation\
+\ls6\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Redirecting customers\
+\ls6\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Displaying payment status\
+\ls6\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Displaying account state\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f0\b \cf0 React must never be responsible for determining whether a payment succeeded.
+\f2\b0 \
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 2. Payment Provider Flow\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 For this project, use the 
+\f0\b NOWPayments hosted invoice flow
+\f2\b0 .\
+The documented flow is:\
+\pard\pardeftab720\partightenfactor0
+\cf0 Create Invoice\
+      
+\f3 \uc0\u8595 
+\f2 \
+Receive invoice_url\
+      
+\f3 \uc0\u8595 
+\f2 \
+Redirect customer to invoice_url\
+      
+\f3 \uc0\u8595 
+\f2 \
+Customer pays\
+      
+\f3 \uc0\u8595 
+\f2 \
+NOWPayments processes payment\
+      
+\f3 \uc0\u8595 
+\f2 \
+IPN callbacks\
+      
+\f3 \uc0\u8595 
+\f2 \
+Backend verifies payment\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+\cf0 NOWPayments documents 
+\f4\fs26 POST /v1/invoice
+\f2\fs24  as the method for creating a payment link where the customer follows the generated URL to complete payment. The response includes an 
+\f4\fs26 invoice_url
+\f2\fs24 .\
+Do 
+\f0\b not
+\f2\b0  expose the NOWPayments API key in React.\
+All communication with NOWPayments requiring the API key must happen inside Firebase Cloud Functions.\
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 3. High-Level Architecture\
+\pard\pardeftab720\partightenfactor0
+
+\f4\b0\fs26 \cf0 \
+
+\f5 \uc0\u9484 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9488 
+\f4 \
+
+\f5 \uc0\u9474 
+\f4        React + Vite      
+\f5 \uc0\u9474 
+\f4 \
+
+\f5 \uc0\u9474 
+\f4                          
+\f5 \uc0\u9474 
+\f4 \
+
+\f5 \uc0\u9474 
+\f4  Registration / Checkout 
+\f5 \uc0\u9474 
+\f4 \
+
+\f5 \uc0\u9492 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9516 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9496 
+\f4 \
+             
+\f5 \uc0\u9474 
+\f4 \
+             
+\f5 \uc0\u9474 
+\f4  HTTPS Callable/Function\
+             
+\f5 \uc0\u9660 
+\f4 \
+
+\f5 \uc0\u9484 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9488 
+\f4 \
+
+\f5 \uc0\u9474 
+\f4  Firebase Cloud Function 
+\f5 \uc0\u9474 
+\f4 \
+
+\f5 \uc0\u9474 
+\f4                          
+\f5 \uc0\u9474 
+\f4 \
+
+\f5 \uc0\u9474 
+\f4  Create Payment          
+\f5 \uc0\u9474 
+\f4 \
+
+\f5 \uc0\u9492 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9516 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9496 
+\f4 \
+             
+\f5 \uc0\u9474 
+\f4 \
+             
+\f5 \uc0\u9474 
+\f4  x-api-key\
+             
+\f5 \uc0\u9660 
+\f4 \
+
+\f5 \uc0\u9484 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9488 
+\f4 \
+
+\f5 \uc0\u9474 
+\f4        NOWPayments       
+\f5 \uc0\u9474 
+\f4 \
+
+\f5 \uc0\u9474 
+\f4                          
+\f5 \uc0\u9474 
+\f4 \
+
+\f5 \uc0\u9474 
+\f4  Hosted Invoice          
+\f5 \uc0\u9474 
+\f4 \
+
+\f5 \uc0\u9492 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9516 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9496 
+\f4 \
+             
+\f5 \uc0\u9474 
+\f4 \
+             
+\f5 \uc0\u9474 
+\f4  Customer pays\
+             
+\f5 \uc0\u9660 
+\f4 \
+
+\f5 \uc0\u9484 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9488 
+\f4 \
+
+\f5 \uc0\u9474 
+\f4        NOWPayments       
+\f5 \uc0\u9474 
+\f4 \
+
+\f5 \uc0\u9474 
+\f4                          
+\f5 \uc0\u9474 
+\f4 \
+
+\f5 \uc0\u9474 
+\f4  Blockchain Processing   
+\f5 \uc0\u9474 
+\f4 \
+
+\f5 \uc0\u9492 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9516 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9496 
+\f4 \
+             
+\f5 \uc0\u9474 
+\f4 \
+             
+\f5 \uc0\u9474 
+\f4  IPN POST\
+             
+\f5 \uc0\u9660 
+\f4 \
+
+\f5 \uc0\u9484 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9488 
+\f4 \
+
+\f5 \uc0\u9474 
+\f4  Firebase Cloud Function 
+\f5 \uc0\u9474 
+\f4 \
+
+\f5 \uc0\u9474 
+\f4                          
+\f5 \uc0\u9474 
+\f4 \
+
+\f5 \uc0\u9474 
+\f4  IPN Webhook             
+\f5 \uc0\u9474 
+\f4 \
+
+\f5 \uc0\u9492 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9516 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9496 
+\f4 \
+             
+\f5 \uc0\u9474 
+\f4 \
+             
+\f5 \uc0\u9500 \u9472 \u9472 
+\f4  Verify signature\
+             
+\f5 \uc0\u9474 
+\f4 \
+             
+\f5 \uc0\u9500 \u9472 \u9472 
+\f4  Validate payment\
+             
+\f5 \uc0\u9474 
+\f4 \
+             
+\f5 \uc0\u9500 \u9472 \u9472 
+\f4  Query NOWPayments\
+             
+\f5 \uc0\u9474 
+\f4 \
+             
+\f5 \uc0\u9492 \u9472 \u9472 
+\f4  Firestore transaction\
+                         
+\f5 \uc0\u9474 
+\f4 \
+                         
+\f5 \uc0\u9660 
+\f4 \
+                
+\f5 \uc0\u9484 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9488 
+\f4 \
+                
+\f5 \uc0\u9474 
+\f4    Firestore    
+\f5 \uc0\u9474 
+\f4 \
+                
+\f5 \uc0\u9474 
+\f4                 
+\f5 \uc0\u9474 
+\f4 \
+                
+\f5 \uc0\u9474 
+\f4  Payment        
+\f5 \uc0\u9474 
+\f4 \
+                
+\f5 \uc0\u9474 
+\f4  Order          
+\f5 \uc0\u9474 
+\f4 \
+                
+\f5 \uc0\u9474 
+\f4  User           
+\f5 \uc0\u9474 
+\f4 \
+                
+\f5 \uc0\u9474 
+\f4  Entitlement    
+\f5 \uc0\u9474 
+\f4 \
+                
+\f5 \uc0\u9474 
+\f4  Audit Trail    
+\f5 \uc0\u9474 
+\f4 \
+                
+\f5 \uc0\u9492 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9496 
+\f4 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs24 \cf0 \
+\
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 4. Three Separate State Systems\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 Do 
+\f0\b not
+\f2\b0  use one generic 
+\f4\fs26 status
+\f2\fs24  field for everything.\
+The application has three distinct state machines.\
+\pard\pardeftab720\sa298\partightenfactor0
+
+\f0\b\fs36 \cf0 User Account State\
+\pard\pardeftab720\partightenfactor0
+
+\f4\b0\fs26 \cf0 \
+pending_payment\
+active\
+suspended\
+disabled\
+\
+\pard\pardeftab720\sa298\partightenfactor0
+
+\f0\b\fs36 \cf0 Order State\
+\pard\pardeftab720\partightenfactor0
+
+\f4\b0\fs26 \cf0 \
+pending_payment\
+payment_processing\
+paid\
+payment_underpaid\
+payment_failed\
+payment_expired\
+refunded\
+cancelled\
+\
+\pard\pardeftab720\sa298\partightenfactor0
+
+\f0\b\fs36 \cf0 Payment State\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 The payment record maintains both:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+internalStatus\
+providerStatus\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 Example:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+\{\
+  internalStatus: "processing",\
+  providerStatus: "confirmed"\
+\}\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 This distinction is important because NOWPayments' states describe 
+\f0\b payment processing
+\f2\b0 , while our internal states describe 
+\f0\b what our application should do
+\f2\b0 .\
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 5. NOWPayments Provider States\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 The provider currently defines:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+waiting\
+confirming\
+confirmed\
+sending\
+partially_paid\
+finished\
+failed\
+refunded\
+expired\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 According to the supplied API documentation:\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls7\ilvl0
+\f4\fs26 \cf0 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+waiting
+\f2\fs24  = waiting for the customer to send payment\
+\ls7\ilvl0
+\f4\fs26 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+confirming
+\f2\fs24  = NOWPayments has detected funds and blockchain processing is underway\
+\ls7\ilvl0
+\f4\fs26 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+confirmed
+\f2\fs24  = sufficient blockchain confirmations have been accumulated\
+\ls7\ilvl0
+\f4\fs26 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+sending
+\f2\fs24  = funds are being sent to the merchant wallet\
+\ls7\ilvl0
+\f4\fs26 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+partially_paid
+\f2\fs24  = less than the required amount was received\
+\ls7\ilvl0
+\f4\fs26 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+finished
+\f2\fs24  = funds reached the merchant address and payment is finished\
+\ls7\ilvl0
+\f4\fs26 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+failed
+\f2\fs24  = payment failed\
+\ls7\ilvl0
+\f4\fs26 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+refunded
+\f2\fs24  = funds were returned\
+\ls7\ilvl0
+\f4\fs26 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+expired
+\f2\fs24  = payment expired without the required payment being received.\
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 6. Internal State Mapping\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 Use the following mapping.\
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2300\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2160
+\clvertalc \clshdrawnil \clwWidth2386\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth2808\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx6480
+\clvertalc \clshdrawnil \clwWidth5251\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\qc\partightenfactor0
+
+\f0\b \cf0 NOWPayments Status\cell 
+\pard\intbl\itap1\pardeftab720\qc\partightenfactor0
+\cf0 Internal Payment State\cell 
+\pard\intbl\itap1\pardeftab720\qc\partightenfactor0
+\cf0 Order State\cell 
+\pard\intbl\itap1\pardeftab720\qc\partightenfactor0
+\cf0 Account\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2300\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2160
+\clvertalc \clshdrawnil \clwWidth2386\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth2808\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx6480
+\clvertalc \clshdrawnil \clwWidth5251\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\b0\fs26 \cf0 waiting
+\f2\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 waiting
+\f2\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 pending_payment
+\f2\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 pending_payment
+\f2\fs24 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2300\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2160
+\clvertalc \clshdrawnil \clwWidth2386\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth2808\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx6480
+\clvertalc \clshdrawnil \clwWidth5251\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 confirming
+\f2\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 processing
+\f2\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 payment_processing
+\f2\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 pending_payment
+\f2\fs24 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2300\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2160
+\clvertalc \clshdrawnil \clwWidth2386\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth2808\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx6480
+\clvertalc \clshdrawnil \clwWidth5251\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 confirmed
+\f2\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 processing
+\f2\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 payment_processing
+\f2\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 pending_payment
+\f2\fs24 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2300\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2160
+\clvertalc \clshdrawnil \clwWidth2386\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth2808\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx6480
+\clvertalc \clshdrawnil \clwWidth5251\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 sending
+\f2\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 processing
+\f2\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 payment_processing
+\f2\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 pending_payment
+\f2\fs24 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2300\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2160
+\clvertalc \clshdrawnil \clwWidth2386\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth2808\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx6480
+\clvertalc \clshdrawnil \clwWidth5251\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 finished
+\f2\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 completed
+\f2\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 paid
+\f2\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f6\b\fs26 \cf0 active
+\f2\b0\fs24 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2300\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2160
+\clvertalc \clshdrawnil \clwWidth2386\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth2808\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx6480
+\clvertalc \clshdrawnil \clwWidth5251\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 partially_paid
+\f2\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 underpaid
+\f2\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 payment_underpaid
+\f2\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 pending_payment
+\f2\fs24 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2300\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2160
+\clvertalc \clshdrawnil \clwWidth2386\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth2808\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx6480
+\clvertalc \clshdrawnil \clwWidth5251\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 failed
+\f2\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 failed
+\f2\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 payment_failed
+\f2\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 pending_payment
+\f2\fs24 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2300\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2160
+\clvertalc \clshdrawnil \clwWidth2386\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth2808\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx6480
+\clvertalc \clshdrawnil \clwWidth5251\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 expired
+\f2\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 expired
+\f2\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 payment_expired
+\f2\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 pending_payment
+\f2\fs24 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2300\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2160
+\clvertalc \clshdrawnil \clwWidth2386\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth2808\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx6480
+\clvertalc \clshdrawnil \clwWidth5251\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 refunded
+\f2\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 refunded
+\f2\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 refunded
+\f2\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 suspended/revoked
+\f2\fs24  according to refund policy\cell \lastrow\row
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Critical rule\
+\pard\pardeftab720\partightenfactor0
+
+\f4\b0\fs26 \cf0 \
+finished \uc0\u8800  automatically activate\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 Instead:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+finished\
+   
+\f5 \uc0\u8595 
+\f4 \
+verify IPN\
+   
+\f5 \uc0\u8595 
+\f4 \
+retrieve payment\
+   
+\f5 \uc0\u8595 
+\f4 \
+validate payment\
+   
+\f5 \uc0\u8595 
+\f4 \
+Firestore transaction\
+   
+\f5 \uc0\u8595 
+\f4 \
+activate\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs24 \cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 7. Registration State\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 When a user registers:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+Firebase Authentication\
+        
+\f5 \uc0\u8595 
+\f4 \
+Create user\
+        
+\f5 \uc0\u8595 
+\f4 \
+Firestore users/\{uid\}\
+        
+\f5 \uc0\u8595 
+\f4 \
+accountStatus = "pending_payment"\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 Example:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+\{\
+  email: "user@example.com",\
+  username: "example",\
+  role: "customer",\
+\
+  accountStatus: "pending_payment",\
+\
+  createdAt: Timestamp,\
+  updatedAt: Timestamp\
+\}\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 The account exists, but it does not have active paid access.\
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 8. Order Creation\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 Before creating a payment, the backend creates an order.\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+orders/\{orderId\}\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 Example:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+\{\
+  userId: "uid123",\
+  productId: "product123",\
+\
+  amount: 49.99,\
+  currency: "USD",\
+\
+  status: "pending_payment",\
+\
+  createdAt: Timestamp,\
+  updatedAt: Timestamp\
+\}\
+\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Security rule\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 The frontend must 
+\f0\b never be trusted for the authoritative price
+\f2\b0 .\
+The Cloud Function should:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+Receive productId\
+      
+\f5 \uc0\u8595 
+\f4 \
+Read product from Firestore\
+      
+\f5 \uc0\u8595 
+\f4 \
+Retrieve authoritative price\
+      
+\f5 \uc0\u8595 
+\f4 \
+Create order\
+      
+\f5 \uc0\u8595 
+\f4 \
+Create NOWPayments payment\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 Do not accept:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+\{\
+  price: 0.01\
+\}\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 from React and blindly send it to NOWPayments.\
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 9. Create NOWPayments Invoice\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 The backend calls:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+POST /v1/invoice\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 with the required payment information.\
+Conceptually:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+\{\
+  price_amount,\
+  price_currency,\
+  pay_currency,\
+  ipn_callback_url,\
+  order_id,\
+  order_description,\
+  success_url,\
+  cancel_url\
+\}\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 NOWPayments documents these fields for invoice creation, including 
+\f4\fs26 order_id
+\f2\fs24 , 
+\f4\fs26 ipn_callback_url
+\f2\fs24 , 
+\f4\fs26 success_url
+\f2\fs24 , and 
+\f4\fs26 cancel_url
+\f2\fs24 .\
+The resulting invoice information should be stored in Firestore.\
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 10. Payment Document\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 Use:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+payments/\{paymentId\}\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 Example:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+\{\
+  userId: "uid123",\
+  orderId: "order123",\
+\
+  provider: "nowpayments",\
+\
+  nowpaymentsPaymentId: "123456789",\
+  nowpaymentsInvoiceId: "987654321",\
+\
+  providerStatus: "waiting",\
+  internalStatus: "waiting",\
+\
+  priceAmount: 49.99,\
+  priceCurrency: "USD",\
+\
+  payCurrency: "BTC",\
+  payAmount: 0.000xxx,\
+\
+  actuallyPaid: 0,\
+\
+  payAddress: "...",\
+\
+  parentPaymentId: null,\
+\
+  outcomeAmount: null,\
+  outcomeCurrency: null,\
+\
+  createdAt: Timestamp,\
+  updatedAt: Timestamp,\
+\
+  completedAt: null\
+\}\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 The NOWPayments payment response includes fields such as 
+\f4\fs26 payment_id
+\f2\fs24 , 
+\f4\fs26 payment_status
+\f2\fs24 , 
+\f4\fs26 pay_address
+\f2\fs24 , 
+\f4\fs26 price_amount
+\f2\fs24 , 
+\f4\fs26 price_currency
+\f2\fs24 , 
+\f4\fs26 pay_amount
+\f2\fs24 , 
+\f4\fs26 pay_currency
+\f2\fs24 , and 
+\f4\fs26 order_id
+\f2\fs24 .\
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 11. Customer Checkout\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 After the Cloud Function creates the invoice:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+NOWPayments\
+     
+\f5 \uc0\u8595 
+\f4 \
+invoice_url\
+     
+\f5 \uc0\u8595 
+\f4 \
+Firebase Function\
+     
+\f5 \uc0\u8595 
+\f4 \
+React\
+     
+\f5 \uc0\u8595 
+\f4 \
+redirect\
+     
+\f5 \uc0\u8595 
+\f4 \
+NOWPayments Hosted Checkout\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 React should only receive the information it needs to redirect the customer.\
+It should 
+\f0\b not
+\f2\b0  receive:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+NOWPayments API key\
+IPN secret\
+Firebase Admin credentials\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs24 \cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 12. Browser Redirect Is Not Payment Confirmation\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 This is one of the most important architectural rules.\
+NOWPayments supports:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+success_url\
+cancel_url\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 but these URLs are 
+\f0\b customer navigation mechanisms
+\f2\b0 , not payment verification mechanisms.\
+Therefore:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+Customer reaches /payment/success\
+            
+\f5 \uc0\u8595 
+\f4 \
+DO NOT activate account\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 Instead:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+Customer reaches /payment/success\
+            
+\f5 \uc0\u8595 
+\f4 \
+Show "We're verifying your payment..."\
+            
+\f5 \uc0\u8595 
+\f4 \
+Frontend reads application payment status\
+            
+\f5 \uc0\u8595 
+\f4 \
+Backend/IPN updates status\
+            
+\f5 \uc0\u8595 
+\f4 \
+UI reflects actual backend state\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 The documentation separately identifies 
+\f4\fs26 success_url
+\f2\fs24  as the redirect destination and IPN/payment-status APIs as the mechanisms for determining payment status.\
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 13. Payment Detection\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 Once the customer sends crypto:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+waiting\
+    
+\f5 \uc0\u8595 
+\f4 \
+confirming\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 NOWPayments has detected the blockchain payment.\
+Our application:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+payment.internalStatus = "processing"\
+\
+order.status = "payment_processing"\
+\
+user.accountStatus = "pending_payment"\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 The account is still inactive.\
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 14. Confirmation\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 NOWPayments:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+confirming\
+     
+\f5 \uc0\u8595 
+\f4 \
+confirmed\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 The documentation states that each currency has its own confirmation requirements.\
+Our application remains:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+payment = processing\
+order = payment_processing\
+account = pending_payment\
+\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Do not activate here.\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b0\fs24 \cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 15. Sending\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 NOWPayments:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+confirmed\
+     
+\f5 \uc0\u8595 
+\f4 \
+sending\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 This means NOWPayments is sending funds to the merchant wallet.\
+Our internal state remains:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+payment = processing\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 No activation yet.\
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 16. Finished\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 NOWPayments:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+sending\
+     
+\f5 \uc0\u8595 
+\f4 \
+finished\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 NOWPayments defines 
+\f4\fs26 finished
+\f2\fs24  as the point where the funds have reached the merchant's personal address and the payment is finished.\
+This is the 
+\f0\b successful provider state
+\f2\b0 .\
+But our backend must still perform validation.\
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 17. IPN Processing\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 NOWPayments sends a POST request to:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+ipn_callback_url\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 The request contains:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+x-nowpayments-sig\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 in the header.\
+The body resembles the payment-status response.\
+Our Cloud Function endpoint:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+POST /nowpayments/ipn\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 must be designed specifically for this purpose.\
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 18. IPN Signature Verification\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 The backend must verify:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+x-nowpayments-sig\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 before processing the event.\
+According to the supplied documentation:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+1. Receive IPN\
+2. Sort payload keys\
+3. Recursively sort nested objects\
+4. JSON.stringify the sorted object\
+5. Generate HMAC-SHA512 using IPN secret\
+6. Compare generated signature with x-nowpayments-sig\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 NOWPayments provides this exact verification approach in its Node.js example.\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 If signature is invalid:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\b0\fs26 \cf0 \
+STOP\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 Do not:\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls8\ilvl0\cf0 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+update payment\
+\ls8\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+activate account\
+\ls8\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+fulfill order\
+\ls8\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+trust the payload\
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 19. Payment Verification\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 After successful IPN authentication:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+IPN\
+ 
+\f5 \uc0\u8595 
+\f4 \
+extract payment_id\
+ 
+\f5 \uc0\u8595 
+\f4 \
+GET /v1/payment/:payment_id\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 The payment-status endpoint returns the actual payment information and requires the same API key used to create the payment.\
+This gives us an additional verification layer:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+IPN signature\
+       +\
+NOWPayments payment-status API\
+       +\
+Our Firestore order\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 Only when these agree should we process the payment.\
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 20. Payment Validation Checklist\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 Before activating an account, the Cloud Function must verify:\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Payment identity\
+\pard\pardeftab720\partightenfactor0
+
+\f4\b0\fs26 \cf0 \
+payment_id\
+invoice_id\
+order_id\
+\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Payment status\
+\pard\pardeftab720\partightenfactor0
+
+\f4\b0\fs26 \cf0 \
+payment_status === "finished"\
+\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Currency/asset\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 Confirm that the received payment corresponds to the expected payment asset.\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Amount\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 Confirm that the amount received satisfies the order's payment requirements.\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Ownership\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 Confirm:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+payment.order_id\
+        
+\f5 \uc0\u8595 
+\f4 \
+our orders/\{orderId\}\
+        
+\f5 \uc0\u8595 
+\f4 \
+order.userId\
+\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Parent payment\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 Check:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+parent_payment_id\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 This is particularly important because NOWPayments documents repeated deposits and warns that repeated deposits may not correspond cleanly to the original expected amount.\
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 21. 
+\f6\fs52 partially_paid
+\f0\fs48 \
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 This state requires special handling.\
+If:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+payment_status = partially_paid\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 then:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+payment.internalStatus = "underpaid"\
+\
+order.status = "payment_underpaid"\
+\
+user.accountStatus = "pending_payment"\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f0\b\fs24 \cf0 Do not activate the account.
+\f2\b0 \
+NOWPayments explicitly recommends against automatically providing goods/services when the payment is partially paid, especially when receiving the full amount is important.\
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 22. 
+\f6\fs52 failed
+\f0\fs48 \
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 If:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+payment_status = failed\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 then:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+payment.internalStatus = "failed"\
+\
+order.status = "payment_failed"\
+\
+user.accountStatus = "pending_payment"\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 The customer can initiate another payment attempt.\
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 23. 
+\f6\fs52 expired
+\f0\fs48 \
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 If:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+payment_status = expired\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 then:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+payment.internalStatus = "expired"\
+\
+order.status = "payment_expired"\
+\
+user.accountStatus = "pending_payment"\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 The original payment attempt is closed.\
+The user can create a new payment attempt.\
+The user account itself should not automatically be deleted simply because a payment attempt expired.\
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 24. 
+\f6\fs52 refunded
+\f0\fs48 \
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 If a completed payment later becomes:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+refunded\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 the system must record:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+payment.internalStatus = refunded\
+order.status = refunded\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 Access should then be revoked or suspended according to the application's refund policy.\
+For this project, the safest default is:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+refunded\
+    
+\f5 \uc0\u8595 
+\f4 \
+revoke paid access\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 rather than allowing a refunded account to retain paid privileges.\
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 25. The Firestore Transaction\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 Successful payment processing must use a 
+\f0\b Firestore transaction
+\f2\b0 .\
+When a valid 
+\f4\fs26 finished
+\f2\fs24  payment is received:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+BEGIN TRANSACTION\
+       
+\f5 \uc0\u9474 
+\f4 \
+       
+\f5 \uc0\u9500 \u9472 \u9472 
+\f4  Read payment\
+       
+\f5 \uc0\u9500 \u9472 \u9472 
+\f4  Read order\
+       
+\f5 \uc0\u9500 \u9472 \u9472 
+\f4  Read user\
+       
+\f5 \uc0\u9474 
+\f4 \
+       
+\f5 \uc0\u9500 \u9472 \u9472 
+\f4  Check whether already fulfilled\
+       
+\f5 \uc0\u9474 
+\f4 \
+       
+\f5 \uc0\u9500 \u9472 \u9472 
+\f4  Update payment\
+       
+\f5 \uc0\u9500 \u9472 \u9472 
+\f4  Update order\
+       
+\f5 \uc0\u9500 \u9472 \u9472 
+\f4  Update user\
+       
+\f5 \uc0\u9492 \u9472 \u9472 
+\f4  Create entitlement\
+       
+\f5 \uc0\u9474 
+\f4 \
+COMMIT\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 The important reason is atomicity.\
+We don't want this:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+payment = completed\
+order = paid\
+user = active\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 to partially execute.\
+For example, we don't want:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+payment = completed\
+order = paid\
+user = pending_payment\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 because the function crashed between operations.\
+The transaction keeps the business state consistent.\
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 26. Exact Activation Rule\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 This is the most important rule in the entire payment system:\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f0\b \cf0 An account may only transition from 
+\f6\fs26 pending_payment
+\f0\fs24  to 
+\f6\fs26 active
+\f0\fs24  after a valid NOWPayments payment has reached 
+\f6\fs26 finished
+\f0\fs24 , the IPN signature has been verified, the payment has been independently validated, and the corresponding Firestore transaction has successfully committed.
+\f2\b0 \
+In shorthand:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+finished\
+   +\
+valid IPN\
+   +\
+valid payment\
+   +\
+valid order\
+   +\
+sufficient payment\
+   +\
+valid asset\
+   +\
+Firestore transaction\
+   =\
+ACCOUNT ACTIVE\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 Nothing else can activate the account.\
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 27. Idempotency\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 The webhook must be 
+\f0\b idempotent
+\f2\b0 .\
+This means processing the same payment event multiple times must not produce multiple account activations or duplicate fulfillment.\
+Example:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+IPN #1\
+finished\
+    
+\f5 \uc0\u8595 
+\f4 \
+activate account\
+\
+IPN #2\
+finished\
+    
+\f5 \uc0\u8595 
+\f4 \
+account already active\
+    
+\f5 \uc0\u8595 
+\f4 \
+DO NOTHING\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 NOWPayments documents recurrent notifications when errors occur while processing notifications, so our backend must expect repeated callbacks.\
+The transaction should therefore check something such as:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+order.status === "paid"\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 before performing fulfillment again.\
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 28. Payment Audit Trail\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 The application should maintain a dedicated:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+paymentEvents/\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 collection.\
+This is separate from the current 
+\f4\fs26 payments/\{paymentId\}
+\f2\fs24  document.\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Why?\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 The payment document represents:\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f0\b \cf0 The current truth about the payment.
+\f2\b0 \
+The audit trail represents:\
+
+\f0\b The history of everything that happened to the payment.
+\f2\b0 \
+These are fundamentally different purposes.\
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 29. Example Payment History\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 Suppose a payment goes through:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+waiting\
+   
+\f5 \uc0\u8595 
+\f4 \
+confirming\
+   
+\f5 \uc0\u8595 
+\f4 \
+confirmed\
+   
+\f5 \uc0\u8595 
+\f4 \
+sending\
+   
+\f5 \uc0\u8595 
+\f4 \
+finished\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 The payment document eventually says:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+\{\
+  providerStatus: "finished",\
+  internalStatus: "completed"\
+\}\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 But without an audit trail, we don't know how it got there.\
+With the audit trail:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+paymentEvents/\
+\
+event_001\
+  status: waiting\
+  receivedAt: ...\
+\
+event_002\
+  status: confirming\
+  receivedAt: ...\
+\
+event_003\
+  status: confirmed\
+  receivedAt: ...\
+\
+event_004\
+  status: sending\
+  receivedAt: ...\
+\
+event_005\
+  status: finished\
+  receivedAt: ...\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 We now have a complete payment history.\
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 30. Why the Audit Trail Matters\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\fs28 \cf0 1. Debugging\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 If a customer says:\
+"I paid but my account wasn't activated."\
+we can investigate exactly what happened.\
+We can see:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+IPN received\
+
+\f5 \uc0\u8595 
+\f4 \
+signature valid\
+
+\f5 \uc0\u8595 
+\f4 \
+payment confirmed\
+
+\f5 \uc0\u8595 
+\f4 \
+finished received\
+
+\f5 \uc0\u8595 
+\f4 \
+transaction attempted\
+
+\f5 \uc0\u8595 
+\f4 \
+transaction failed\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 Instead of guessing.\
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 2. Payment disputes\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 Suppose a customer claims:\
+"I paid the full amount."\
+We can inspect:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+expected amount\
+actually paid\
+pay currency\
+provider status\
+payment ID\
+order ID\
+timestamps\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 and determine what actually happened.\
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 3. Duplicate webhook investigation\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 If NOWPayments sends the same notification several times, the audit trail lets us see:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+finished\
+finished\
+finished\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 while the order was fulfilled only once.\
+This proves that idempotency worked.\
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 4. Security investigation\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 If someone attempts to send a fake webhook, we can record:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+signatureValid: false\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 and reject it.\
+This gives us an internal security record.\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 5. Operational visibility\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 The audit trail lets us answer questions like:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+How many payments entered confirming today?\
+How many became finished?\
+How many failed?\
+How many were underpaid?\
+How many expired?\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 without relying exclusively on NOWPayments' dashboard.\
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 6. Recovery\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 Imagine a Cloud Function fails after NOWPayments reports:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+finished\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 The notification may be retried.\
+Even if we need to manually investigate the incident, our audit history tells us exactly where processing stopped.\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 7. Financial reconciliation\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 The audit trail gives us a historical record that can later be compared against:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+NOWPayments payment history\
++\
+our orders\
++\
+our payment records\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 This becomes extremely valuable as transaction volume grows.\
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 31. Audit Event Structure\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 Use:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+paymentEvents/\{eventId\}\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 Example:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+\{\
+  paymentId: "payment123",\
+  orderId: "order123",\
+  userId: "uid123",\
+\
+  provider: "nowpayments",\
+\
+  providerStatus: "finished",\
+\
+  previousProviderStatus: "sending",\
+\
+  internalStatus: "completed",\
+\
+  eventType: "payment_status_changed",\
+\
+  signatureValid: true,\
+\
+  receivedAt: Timestamp,\
+\
+  processedAt: Timestamp,\
+\
+  processingResult: "success",\
+\
+  payload: \{\
+    // sanitized NOWPayments payload\
+  \}\
+\}\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 Do not store secrets in the audit record.\
+In particular, never store:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+NOWPayments API key\
+IPN secret\
+Firebase Admin credentials\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs24 \cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 32. Audit Trail vs Payment Document\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 The distinction should remain explicit.\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Payment document\
+\pard\pardeftab720\partightenfactor0
+
+\f4\b0\fs26 \cf0 \
+payments/\{paymentId\}\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 answers:\
+"What is the payment's current state?"\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Audit event\
+\pard\pardeftab720\partightenfactor0
+
+\f4\b0\fs26 \cf0 \
+paymentEvents/\{eventId\}\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 answers:\
+"What happened to this payment over time?"\
+Therefore:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+payments/payment123\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 might currently contain:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+\{\
+  providerStatus: "finished",\
+  internalStatus: "completed"\
+\}\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 while:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+paymentEvents/\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 contains the historical state transitions.\
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 33. Recommended Firestore Architecture\
+\pard\pardeftab720\partightenfactor0
+
+\f4\b0\fs26 \cf0 \
+users/\
+  \{uid\}\
+\
+products/\
+  \{productId\}\
+\
+orders/\
+  \{orderId\}\
+\
+payments/\
+  \{paymentId\}\
+\
+entitlements/\
+  \{entitlementId\}\
+\
+paymentEvents/\
+  \{eventId\}\
+\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Relationships\
+\pard\pardeftab720\partightenfactor0
+
+\f4\b0\fs26 \cf0 \
+User\
+ 
+\f5 \uc0\u9474 
+\f4 \
+ 
+\f5 \uc0\u9492 \u9472 \u9472 
+\f4  Orders\
+       
+\f5 \uc0\u9474 
+\f4 \
+       
+\f5 \uc0\u9492 \u9472 \u9472 
+\f4  Payment\
+              
+\f5 \uc0\u9474 
+\f4 \
+              
+\f5 \uc0\u9500 \u9472 \u9472 
+\f4  NOWPayments Payment\
+              
+\f5 \uc0\u9474 
+\f4 \
+              
+\f5 \uc0\u9492 \u9472 \u9472 
+\f4  Payment Events\
+\
+Order\
+ 
+\f5 \uc0\u9474 
+\f4 \
+ 
+\f5 \uc0\u9492 \u9472 \u9472 
+\f4  Entitlement\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs24 \cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 34. Complete Lifecycle\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 The AI coding assistant should understand the complete flow as:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+USER REGISTRATION\
+       
+\f5 \uc0\u8595 
+\f4 \
+Firebase Auth User Created\
+       
+\f5 \uc0\u8595 
+\f4 \
+Firestore User Created\
+       
+\f5 \uc0\u8595 
+\f4 \
+accountStatus = pending_payment\
+       
+\f5 \uc0\u8595 
+\f4 \
+USER SELECTS PRODUCT\
+       
+\f5 \uc0\u8595 
+\f4 \
+CREATE ORDER\
+       
+\f5 \uc0\u8595 
+\f4 \
+orderStatus = pending_payment\
+       
+\f5 \uc0\u8595 
+\f4 \
+Firebase Cloud Function\
+       
+\f5 \uc0\u8595 
+\f4 \
+Create NOWPayments Invoice\
+       
+\f5 \uc0\u8595 
+\f4 \
+Store payment/invoice information\
+       
+\f5 \uc0\u8595 
+\f4 \
+Return invoice_url to React\
+       
+\f5 \uc0\u8595 
+\f4 \
+REDIRECT TO NOWPAYMENTS\
+       
+\f5 \uc0\u8595 
+\f4 \
+Customer Pays\
+       
+\f5 \uc0\u8595 
+\f4 \
+NOWPayments: waiting\
+       
+\f5 \uc0\u8595 
+\f4 \
+NOWPayments: confirming\
+       
+\f5 \uc0\u8595 
+\f4 \
+NOWPayments: confirmed\
+       
+\f5 \uc0\u8595 
+\f4 \
+NOWPayments: sending\
+       
+\f5 \uc0\u8595 
+\f4 \
+NOWPayments: finished\
+       
+\f5 \uc0\u8595 
+\f4 \
+IPN 
+\f5 \uc0\u8594 
+\f4  Firebase Cloud Function\
+       
+\f5 \uc0\u8595 
+\f4 \
+Verify x-nowpayments-sig\
+       
+\f5 \uc0\u8595 
+\f4 \
+Validate payment/order/amount/asset\
+       
+\f5 \uc0\u8595 
+\f4 \
+GET NOWPayments payment status\
+       
+\f5 \uc0\u8595 
+\f4 \
+Confirm provider status = finished\
+       
+\f5 \uc0\u8595 
+\f4 \
+Firestore Transaction\
+       
+\f5 \uc0\u9474 
+\f4 \
+       
+\f5 \uc0\u9500 \u9472 \u9472 
+\f4  Payment = completed\
+       
+\f5 \uc0\u9500 \u9472 \u9472 
+\f4  Order = paid\
+       
+\f5 \uc0\u9500 \u9472 \u9472 
+\f4  Entitlement = active\
+       
+\f5 \uc0\u9492 \u9472 \u9472 
+\f4  User = active\
+       
+\f5 \uc0\u8595 
+\f4 \
+COMMIT\
+       
+\f5 \uc0\u8595 
+\f4 \
+ACCOUNT ACCESS GRANTED\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs24 \cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 35. Failure Lifecycle\
+\pard\pardeftab720\partightenfactor0
+
+\f4\b0\fs26 \cf0 \
+waiting\
+   
+\f5 \uc0\u9474 
+\f4 \
+   
+\f5 \uc0\u9492 \u9472 \u9472 
+\f4  no payment\
+          
+\f5 \uc0\u8595 
+\f4 \
+       expired\
+          
+\f5 \uc0\u8595 
+\f4 \
+  payment_expired\
+          
+\f5 \uc0\u8595 
+\f4 \
+  user remains pending\
+\
+\
+confirming\
+   
+\f5 \uc0\u9474 
+\f4 \
+   
+\f5 \uc0\u9492 \u9472 \u9472 
+\f4  provider failure\
+          
+\f5 \uc0\u8595 
+\f4 \
+       failed\
+          
+\f5 \uc0\u8595 
+\f4 \
+   payment_failed\
+          
+\f5 \uc0\u8595 
+\f4 \
+  user remains pending\
+\
+\
+payment detected\
+       
+\f5 \uc0\u8595 
+\f4 \
+partially_paid\
+       
+\f5 \uc0\u8595 
+\f4 \
+payment_underpaid\
+       
+\f5 \uc0\u8595 
+\f4 \
+DO NOT ACTIVATE\
+\
+\
+completed\
+    
+\f5 \uc0\u8595 
+\f4 \
+refunded\
+    
+\f5 \uc0\u8595 
+\f4 \
+revoke/suspend access\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs24 \cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 36. Network/Browser Failure\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 The customer's browser must 
+\f0\b not
+\f2\b0  control payment completion.\
+For example:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+Customer pays\
+     
+\f5 \uc0\u8595 
+\f4 \
+Internet disconnects\
+     
+\f5 \uc0\u8595 
+\f4 \
+Browser disappears\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 The payment processing does not depend on React remaining open.\
+NOWPayments continues processing the transaction and can send the IPN to our backend.\
+When the user returns:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+React\
+  
+\f5 \uc0\u8595 
+\f4 \
+Firebase Auth\
+  
+\f5 \uc0\u8595 
+\f4 \
+Firestore\
+  
+\f5 \uc0\u8595 
+\f4 \
+accountStatus\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 The UI reflects the actual backend state.\
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 37. Security Rules\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 The frontend must never be allowed to directly manipulate:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+accountStatus\
+order.status\
+payment.status\
+entitlement.status\
+paymentEvents\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 For example, a malicious user must not be able to do:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+updateDoc(userRef, \{\
+  accountStatus: "active"\
+\});\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 and activate themselves.\
+These state transitions must happen 
+\f0\b server-side through trusted Firebase Cloud Functions
+\f2\b0 .\
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 38. Secrets\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 The following values must remain server-side:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+NOWPayments API Key\
+NOWPayments IPN Secret\
+Firebase Admin credentials/configuration\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 They should be managed through the Firebase/server-side secret configuration rather than committed to the React application.\
+Never put the IPN secret in:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+.env\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 if that 
+\f4\fs26 .env
+\f2\fs24  is bundled into the Vite frontend.\
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 39. Final Architectural Rules\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 The AI coding assistant must follow these rules throughout implementation:\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Rule 1\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\fs24 \cf0 Never trust the frontend to confirm payment.
+\f2\b0 \
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Rule 2\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\fs24 \cf0 Never activate an account because the customer reached 
+\f6\fs26 success_url
+\f0\fs24 .
+\f2\b0 \
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Rule 3\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\fs24 \cf0 Never activate an account on 
+\f6\fs26 confirming
+\f0\fs24 , 
+\f6\fs26 confirmed
+\f0\fs24 , or 
+\f6\fs26 sending
+\f0\fs24 .
+\f2\b0 \
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Rule 4\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\fs24 \cf0 Never automatically fulfill a 
+\f6\fs26 partially_paid
+\f0\fs24  payment.
+\f2\b0 \
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Rule 5\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\fs24 \cf0 Always verify the NOWPayments IPN signature.
+\f2\b0 \
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Rule 6\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\fs24 \cf0 Use the NOWPayments payment-status endpoint as an additional verification layer.
+\f2\b0 \
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Rule 7\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\fs24 \cf0 Always correlate the NOWPayments payment with our own order.
+\f2\b0 \
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Rule 8\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\fs24 \cf0 Check amount, asset/currency, and 
+\f6\fs26 parent_payment_id
+\f0\fs24  where applicable.
+\f2\b0 \
+NOWPayments specifically recommends these checks because of repeated and wrong-asset deposits.\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Rule 9\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\fs24 \cf0 Use Firestore transactions for final fulfillment/activation.
+\f2\b0 \
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Rule 10\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\fs24 \cf0 Webhook processing must be idempotent.
+\f2\b0 \
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Rule 11\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\fs24 \cf0 Maintain a payment audit trail.
+\f2\b0 \
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Rule 12\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\fs24 \cf0 Never expose payment secrets to React.
+\f2\b0 \
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Rule 13\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\fs24 \cf0 The account becomes active only after the validated 
+\f6\fs26 finished
+\f0\fs24  payment has successfully committed to Firestore.
+\f2\b0 \
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 40. The One-Line Mental Model\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf0 The entire architecture can be remembered as:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+NOWPayments tells us WHAT HAPPENED.\
+Firebase Cloud Functions decide WHAT IT MEANS.\
+Firestore records WHAT WE BELIEVE.\
+React displays WHAT THE USER CAN DO.\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\fs24 \cf0 And the ultimate activation gate is:\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \
+NOWPayments finished\
+        
+\f5 \uc0\u8595 
+\f4 \
+IPN signature valid\
+        
+\f5 \uc0\u8595 
+\f4 \
+Payment independently verified\
+        
+\f5 \uc0\u8595 
+\f4 \
+Order validated\
+        
+\f5 \uc0\u8595 
+\f4 \
+Amount + asset validated\
+        
+\f5 \uc0\u8595 
+\f4 \
+Not already fulfilled\
+        
+\f5 \uc0\u8595 
+\f4 \
+Firestore transaction\
+        
+\f5 \uc0\u8595 
+\f4 \
+USER = ACTIVE\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f0\b\fs24 \cf0 That is the payment architecture the coding assistant should implement.
+\f2\b0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+\
+}
