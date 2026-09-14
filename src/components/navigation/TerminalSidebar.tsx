@@ -8,7 +8,6 @@ import {
   HelpCircle,
   LogOut,
   ShieldCheck,
-  Terminal,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -58,8 +57,14 @@ export function TerminalSidebar({
     >
       {/* Sidebar Header / Brand */}
       <div className="border-b border-[#1E1E1E] p-4">
-        <div className="flex items-center gap-2 text-xs font-semibold text-[#EDEDED]">
-          <Terminal className="h-4 w-4 text-[#00FF66]" />
+        <div className="flex items-center gap-2.5 text-xs font-semibold text-[#EDEDED]">
+          <div className="flex h-6 w-6 items-center justify-center rounded border border-[#1E1E1E] bg-[#050505] overflow-hidden p-0.5 shadow-sm shrink-0">
+            <img
+              src="/assets/inside-underground-logo.png"
+              alt="Inside Underground Logo"
+              className="h-full w-full object-contain rounded-sm"
+            />
+          </div>
           <span className="tracking-tight text-sm">INSIDE_UNDERGROUND</span>
         </div>
         <div className="mt-2 flex items-center justify-between text-[11px] text-[#737373]">

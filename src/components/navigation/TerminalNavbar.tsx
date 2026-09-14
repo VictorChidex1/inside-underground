@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Terminal, Menu, X } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 
@@ -40,7 +40,7 @@ export function TerminalNavbar({
   return (
     <nav
       className={cn(
-        'relative border-b border-[#1E1E1E] bg-[#070707] font-mono text-xs select-none z-30',
+        'sticky top-0 z-50 border-b border-[#1E1E1E] bg-[#070707]/95 backdrop-blur-md font-mono text-xs select-none shadow-md transition-all',
         className
       )}
       {...props}
@@ -48,11 +48,15 @@ export function TerminalNavbar({
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6">
         {/* Brand */}
         <div
-          className="flex items-center gap-2 cursor-pointer transition-opacity hover:opacity-85"
+          className="flex items-center gap-2.5 cursor-pointer transition-opacity hover:opacity-85"
           onClick={() => onNavigate?.('/')}
         >
-          <div className="flex h-7 w-7 items-center justify-center rounded border border-[#00FF66]/40 bg-[#00FF66]/10 text-[#00FF66]">
-            <Terminal className="h-4 w-4" />
+          <div className="flex h-8 w-8 items-center justify-center rounded border border-[#1E1E1E] bg-[#050505] overflow-hidden p-0.5 shadow-sm">
+            <img
+              src="/assets/inside-underground-logo.png"
+              alt="Inside Underground Logo"
+              className="h-full w-full object-contain rounded-sm"
+            />
           </div>
           <span className="font-semibold tracking-tight text-sm text-[#EDEDED]">
             INSIDE_UNDERGROUND
