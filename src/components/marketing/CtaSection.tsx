@@ -11,7 +11,7 @@ export interface CtaSectionProps {
 export function CtaSection({ onRegisterClick, onBrowseClick }: CtaSectionProps) {
   return (
     <section id="cta" className="py-14 md:py-20">
-      <div className="mx-auto max-w-5xl px-4 sm:px-6">
+      <div className="w-full px-4 sm:px-8 lg:px-12">
         <div className="rounded-lg border border-[#00FF66]/40 bg-[#070707] p-6 sm:p-10 font-mono shadow-[0_0_30px_rgba(0,255,102,0.05)] space-y-6 text-center">
           {/* Prompt */}
           <div className="inline-block text-left border border-[#1E1E1E] bg-[#0A0A0A] px-3.5 py-1.5 rounded">

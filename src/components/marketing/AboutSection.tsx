@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge'
 export function AboutSection() {
   return (
     <section id="about" className="py-12 md:py-16 border-b border-[#1E1E1E]">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 space-y-8 font-mono">
+      <div className="w-full px-4 sm:px-8 lg:px-12 space-y-8 font-mono">
         {/* Header */}
         <div className="space-y-1">
           <div className="flex items-center gap-2 text-xs text-[#737373]">

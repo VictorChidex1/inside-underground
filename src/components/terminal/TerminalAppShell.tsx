@@ -51,8 +51,8 @@ export function TerminalAppShell({
           isAuthenticated={false}
         />
         <main className="flex-1">{children}</main>
-        <footer className="border-t border-[#1E1E1E] bg-[#070707] py-6 px-4 font-mono text-xs text-[#525252]">
-          <div className="mx-auto flex max-w-7xl flex-col sm:flex-row items-center justify-between gap-4">
+        <footer className="border-t border-[#1E1E1E] bg-[#070707] py-6 font-mono text-xs text-[#525252]">
+          <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-4 px-4 sm:px-8 lg:px-12">
             <div className="flex items-center gap-2">
               <span className="text-[#00FF66] font-bold">&gt;</span>
               <span className="text-[#EDEDED]">INSIDE_UNDERGROUND</span>

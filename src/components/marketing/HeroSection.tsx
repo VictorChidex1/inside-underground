@@ -23,7 +23,7 @@ export function HeroSection({
 }: HeroSectionProps) {
   return (
     <section id="hero" className="relative py-12 md:py-20 border-b border-[#1E1E1E]">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="w-full px-4 sm:px-8 lg:px-12">
         {/* Terminal Window Frame */}
         <div className="rounded-lg border border-[#1E1E1E] bg-[#070707] shadow-2xl overflow-hidden transition-colors hover:border-[#2E2E2E]">
           {/* Window Header */}

@@ -79,7 +79,7 @@ export function FeaturedProductsSection({
 }: FeaturedProductsSectionProps) {
   return (
     <section id="featured" className="py-12 md:py-16 border-b border-[#1E1E1E]">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 space-y-6">
+      <div className="w-full px-4 sm:px-8 lg:px-12 space-y-6">
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-1">
@@ -107,7 +107,7 @@ export function FeaturedProductsSection({
         </div>
 
         {/* Product Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {FEATURED_PRODUCTS.map((product) => (
             <TerminalPanel
               key={product.id}

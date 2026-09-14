@@ -45,7 +45,7 @@ export function TerminalNavbar({
       )}
       {...props}
     >
-      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6">
+      <div className="w-full flex h-14 items-center justify-between px-4 sm:px-8 lg:px-12">
         {/* Brand */}
         <div
           className="flex items-center gap-2.5 cursor-pointer transition-opacity hover:opacity-85"
