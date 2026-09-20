@@ -1,70 +1,86 @@
-import * as React from 'react'
+import { Routes, Route, useNavigate, useLocation, Outlet } from 'react-router-dom'
 import { TerminalAppShell } from '@/components/terminal/TerminalAppShell'
+import { ScrollToTop } from '@/components/navigation/ScrollToTop'
 import { HomePage } from '@/pages/Home'
+import { PlaceholderPage } from '@/pages/PlaceholderPage'
 
-function App() {
-  const [activePath, setActivePath] = React.useState('/')
-  const [notification, setNotification] = React.useState<string | null>(null)
-
-  const showNotification = (message: string) => {
-    setNotification(message)
-    setTimeout(() => setNotification(null), 3500)
-  }
-
-  const handleNavigate = (path: string) => {
-    setActivePath(path)
-    if (path.startsWith('/#')) {
-      const sectionId = path.replace('/#', '')
-      const el = document.getElementById(sectionId)
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' })
-      }
-    } else if (path === '/browse') {
-      const featured = document.getElementById('featured')
-      if (featured) {
-        featured.scrollIntoView({ behavior: 'smooth' })
-      } else {
-        showNotification('Step 6 will establish the dedicated /browse catalogue.')
-      }
-    } else if (path === '/support') {
-      const contact = document.getElementById('contact')
-      if (contact) {
-        contact.scrollIntoView({ behavior: 'smooth' })
-      }
-    } else if (path === '/') {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    }
-  }
+function PublicLayout() {
+  const navigate = useNavigate()
+  const location = useLocation()
 
   return (
-    <>
-      {/* Toast Notification */}
-      {notification && (
-        <div className="fixed top-4 right-4 z-50 rounded border border-[#00FF66]/50 bg-[#0A0A0A] px-4 py-2.5 font-mono text-xs text-[#00FF66] shadow-2xl flex items-center gap-2">
-          <span className="h-2 w-2 rounded-full bg-[#00FF66] animate-pulse" />
-          <span>{notification}</span>
-        </div>
-      )}
+    <TerminalAppShell
+      mode="public"
+      activePath={location.pathname}
+      onNavigate={(path) => navigate(path)}
+      onRegisterClick={() => navigate('/register')}
+      onLoginClick={() => navigate('/login')}
+    >
+      <Outlet />
+    </TerminalAppShell>
+  )
+}
 
-      {/* Main Public Application Shell */}
-      <TerminalAppShell
-        mode="public"
-        activePath={activePath}
-        onNavigate={handleNavigate}
-      >
-        <HomePage
-          onNavigate={handleNavigate}
-          onProductClick={(id) =>
-            showNotification(`Inspecting ${id} — Step 6 will establish dedicated product details pages.`)
-          }
-          onRegisterClick={() =>
-            showNotification('Registration flow will be connected in Step 7.')
-          }
-          onLoginClick={() =>
-            showNotification('Login flow will be connected in Step 7.')
-          }
-        />
-      </TerminalAppShell>
+function HomeRoute() {
+  const navigate = useNavigate()
+  return (
+    <HomePage
+      onNavigate={(path) => navigate(path)}
+      onProductClick={(id) => navigate(`/product/${id}`)}
+      onRegisterClick={() => navigate('/register')}
+      onLoginClick={() => navigate('/login')}
+    />
+  )
+}
+
+const PLACEHOLDER_ROUTES: Array<{ path: string; title: string; step: string }> = [
+  { path: '/browse', title: 'BROWSE_PRODUCTS', step: 'Step 6' },
+  { path: '/register', title: 'REGISTER', step: 'Step 7' },
+  { path: '/login', title: 'LOGIN', step: 'Step 7' },
+  { path: '/account', title: 'ACCOUNT', step: 'Step 15' },
+  { path: '/support', title: 'SUPPORT', step: 'Step 16' },
+  { path: '/forgot-password', title: 'FORGOT_PASSWORD', step: 'Step 7' },
+  { path: '/reset-password', title: 'RESET_PASSWORD', step: 'Step 7' },
+  { path: '/terms', title: 'TERMS', step: 'Step 5' },
+  { path: '/privacy', title: 'PRIVACY', step: 'Step 5' },
+  { path: '/payment/pending', title: 'PAYMENT_PENDING', step: 'Step 9' },
+  { path: '/payment/success', title: 'PAYMENT_SUCCESS', step: 'Step 9' },
+  { path: '/payment/failed', title: 'PAYMENT_FAILED', step: 'Step 9' },
+]
+
+function App() {
+  return (
+    <>
+      <ScrollToTop />
+      <Routes>
+        <Route element={<PublicLayout />}>
+          <Route index element={<HomeRoute />} />
+          {PLACEHOLDER_ROUTES.map((route) => (
+            <Route
+              key={route.path}
+              path={route.path}
+              element={<PlaceholderPage title={route.title} step={route.step} />}
+            />
+          ))}
+          <Route
+            path="/product/:productId"
+            element={<PlaceholderPage title="PRODUCT_DETAILS" step="Step 6" />}
+          />
+          <Route
+            path="/checkout/:orderId"
+            element={<PlaceholderPage title="CHECKOUT" step="Step 8" />}
+          />
+          <Route
+            path="*"
+            element={
+              <PlaceholderPage
+                title="NOT_FOUND"
+                description="The requested route does not exist."
+              />
+            }
+          />
+        </Route>
+      </Routes>
     </>
   )
 }

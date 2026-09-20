@@ -10,6 +10,8 @@ export interface TerminalAppShellProps extends React.HTMLAttributes<HTMLDivEleme
   activeNavId?: string
   activePath?: string
   onNavigate?: (path: string, item?: SidebarNavItem) => void
+  onLoginClick?: () => void
+  onRegisterClick?: () => void
   userEmail?: string
   accountStatus?: string
   currentPathDisplay?: string
@@ -21,6 +23,8 @@ export function TerminalAppShell({
   activeNavId = 'browse',
   activePath = '/browse',
   onNavigate,
+  onLoginClick,
+  onRegisterClick,
   userEmail = 'operator@underground.net',
   accountStatus = 'ACTIVE',
   currentPathDisplay,
@@ -49,6 +53,8 @@ export function TerminalAppShell({
           activePath={activePath}
           onNavigate={(path) => onNavigate?.(path)}
           isAuthenticated={false}
+          onLoginClick={onLoginClick}
+          onRegisterClick={onRegisterClick}
         />
         <main className="flex-1">{children}</main>
         <footer className="border-t border-[#1E1E1E] bg-[#070707] py-6 font-mono text-xs text-[#525252]">
