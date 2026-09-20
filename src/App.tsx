@@ -1,6 +1,7 @@
 import { Routes, Route, useNavigate, useLocation, Outlet } from 'react-router-dom'
 import { TerminalAppShell } from '@/components/terminal/TerminalAppShell'
 import { ScrollToTop } from '@/components/navigation/ScrollToTop'
+import { ScrollToTopButton } from '@/components/navigation/ScrollToTopButton'
 import { HomePage } from '@/pages/Home'
 import { PlaceholderPage } from '@/pages/PlaceholderPage'
 
@@ -52,6 +53,7 @@ function App() {
   return (
     <>
       <ScrollToTop />
+      <ScrollToTopButton />
       <Routes>
         <Route element={<PublicLayout />}>
           <Route index element={<HomeRoute />} />
