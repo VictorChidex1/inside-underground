@@ -17,6 +17,9 @@ import {
 import { Button } from '@/components/ui/button'
 import { TerminalPrompt } from '@/components/terminal/TerminalPrompt'
 import { TerminalCursor } from '@/components/terminal/TerminalCursor'
+import { DecryptedText } from '@/components/ui/DecryptedText'
+import { GravityGrid } from '@/components/marketing/GravityGrid'
+import { LaserBorder } from '@/components/ui/LaserBorder'
 
 export interface HeroSectionProps {
   onBrowseClick?: () => void
@@ -92,6 +95,20 @@ export function HeroSection({
   const [selectedProductIndex, setSelectedProductIndex] = React.useState<number>(0)
   const [commandEcho, setCommandEcho] = React.useState<string>('select_action')
 
+  // Interactive mouse tracking for the mathematical gravity coordinate grid
+  const [mousePos, setMousePos] = React.useState<{ x: number; y: number }>({ x: 0, y: 0 })
+  const [isHovered, setIsHovered] = React.useState<boolean>(false)
+  const containerRef = React.useRef<HTMLElement>(null)
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    if (!containerRef.current) return
+    const rect = containerRef.current.getBoundingClientRect()
+    setMousePos({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    })
+  }
+
   const activeProduct = FEATURED_ITEMS[selectedProductIndex]
 
   // Listen for keyboard quick actions (1/B, 2/H, 3/R)
@@ -127,85 +144,120 @@ export function HeroSection({
   }
 
   return (
-    <section id="hero" className="relative py-8 md:py-16 border-b border-[#1E1E1E] overflow-hidden">
+    <section
+      id="hero"
+      ref={containerRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="relative py-8 md:py-16 border-b border-[#1E1E1E] overflow-hidden"
+    >
+      {/* Mathematical Blueprint Coordinate Gravity Grid */}
+      <GravityGrid mousePos={mousePos} isHovered={isHovered} />
+
       {/* Ambient background glow for visual depth */}
       <div
-        className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[850px] h-[550px] rounded-full blur-[140px] opacity-20"
+        className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[850px] h-[550px] rounded-full blur-[140px] opacity-25 z-0"
         style={{
           background: 'radial-gradient(circle, rgba(0,255,102,0.35) 0%, rgba(0,153,255,0.18) 50%, transparent 70%)',
         }}
         aria-hidden="true"
       />
 
-      <div className="w-full px-4 sm:px-8 lg:px-12">
-        {/* Main Terminal Window Frame */}
+      <div className="relative z-10 w-full px-4 sm:px-8 lg:px-12">
+        {/* Main Terminal Window Frame with Hardware-Accelerated Traveling Perimeter Laser Border */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
-          className="rounded-lg border border-[#262626] bg-[#070707] shadow-2xl overflow-hidden transition-colors hover:border-[#383838]"
         >
-          {/* macOS Terminal Window Header */}
-          <div className="flex items-center justify-between border-b border-[#1E1E1E] bg-[#0C0C0C]/95 backdrop-blur-sm px-4 py-2.5 font-mono text-xs select-none">
-            <div className="flex items-center gap-2">
-              <div className="flex items-center gap-1.5 group cursor-default" aria-label="macOS Window Controls">
-                <span className="h-3 w-3 rounded-full bg-[#FF5F56] inline-flex items-center justify-center text-[8px] text-black/0 group-hover:text-black/80 font-bold transition-colors leading-none">
-                  ×
-                </span>
-                <span className="h-3 w-3 rounded-full bg-[#FFBD2E] inline-flex items-center justify-center text-[8px] text-black/0 group-hover:text-black/80 font-bold transition-colors leading-none">
-                  −
-                </span>
-                <span className="h-3 w-3 rounded-full bg-[#27C93F] inline-flex items-center justify-center text-[8px] text-black/0 group-hover:text-black/80 font-bold transition-colors leading-none">
-                  +
+          <LaserBorder
+            speed="8s"
+            laserColor="#00FF66"
+            secondaryColor="rgba(0, 153, 255, 0.45)"
+            glowIntensity="vibrant"
+            showCornerTargets={true}
+            className="shadow-2xl"
+          >
+            {/* macOS Terminal Window Header with Top-Secret Defense Enclave Clearance Badge */}
+            <div className="flex items-center justify-between border-b border-[#1E1E1E] bg-[#0C0C0C]/95 backdrop-blur-sm px-4 py-2.5 font-mono text-xs select-none">
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5 group cursor-default" aria-label="macOS Window Controls">
+                  <span className="h-3 w-3 rounded-full bg-[#FF5F56] inline-flex items-center justify-center text-[8px] text-black/0 group-hover:text-black/80 font-bold transition-colors leading-none">
+                    ×
+                  </span>
+                  <span className="h-3 w-3 rounded-full bg-[#FFBD2E] inline-flex items-center justify-center text-[8px] text-black/0 group-hover:text-black/80 font-bold transition-colors leading-none">
+                    −
+                  </span>
+                  <span className="h-3 w-3 rounded-full bg-[#27C93F] inline-flex items-center justify-center text-[8px] text-black/0 group-hover:text-black/80 font-bold transition-colors leading-none">
+                    +
+                  </span>
+                </div>
+                <span className="text-[#A3A3A3] ml-2 hidden sm:inline font-medium">
+                  guest@insideunderground.com:~ — Marketplace Terminal
                 </span>
               </div>
-              <span className="text-[#A3A3A3] ml-2 hidden sm:inline font-medium">
-                guest@insideunderground.com:~ — Marketplace Terminal
-              </span>
-            </div>
 
-            <div className="flex items-center gap-3">
-              <div className="hidden md:flex items-center gap-1.5 text-[11px] text-[#A3A3A3]">
-                <Activity className="h-3.5 w-3.5 text-[#00FF66]" />
-                <span className="font-medium text-[#D4D4D4]">STATUS: ALL SYSTEMS OPERATIONAL</span>
-              </div>
-              <div className="flex items-center gap-2 text-[11px] text-[#00FF66] bg-[#00FF66]/10 px-2.5 py-0.5 rounded border border-[#00FF66]/30">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#00FF66] animate-pulse-subtle" />
-                <span className="font-semibold tracking-wider">STORE_ONLINE</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Terminal Window Content - Split-Pane Architecture */}
-          <div className="p-6 sm:p-8 lg:p-10">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-              {/* LEFT COLUMN: Human-First Mission & Clear Navigation (7 Cols) */}
-              <div className="lg:col-span-7 space-y-6">
-                {/* Boot command prompt */}
-                <div className="space-y-1">
-                  <TerminalPrompt
-                    user="guest"
-                    host="insideunderground.com"
-                    path="~"
-                    command="./welcome.sh --mode=public"
-                  />
+              <div className="flex items-center gap-2.5">
+                {/* Top-Secret Defense Enclave Badge */}
+                <div className="hidden lg:flex items-center gap-1.5 text-[10px] text-[#FFB800] bg-[#FFB800]/10 border border-[#FFB800]/30 px-2 py-0.5 rounded font-mono font-semibold">
+                  <Shield className="h-3 w-3 text-[#FFB800]" />
+                  <span>CLASSIFICATION: RESTRICTED // CLEARANCE: LEVEL_4</span>
                 </div>
 
-                {/* Main Headline & Subtitle */}
-                <div className="space-y-3">
-                  <div className="inline-flex items-center gap-2 text-[#00FF66] text-xs sm:text-sm font-mono font-bold tracking-wider uppercase bg-[#00FF66]/10 px-3 py-1 rounded border border-[#00FF66]/20">
-                    <span className="h-2 w-2 rounded-full bg-[#00FF66]" />
-                    <span>VERIFIED DIGITAL PRODUCTS // INSTANT CRYPTO CHECKOUT</span>
+                <div className="hidden md:flex items-center gap-1.5 text-[11px] text-[#A3A3A3]">
+                  <Activity className="h-3.5 w-3.5 text-[#00FF66]" />
+                  <span className="font-medium text-[#D4D4D4]">NODE: #001_ONLINE</span>
+                </div>
+
+                <div className="flex items-center gap-2 text-[11px] text-[#00FF66] bg-[#00FF66]/10 px-2.5 py-0.5 rounded border border-[#00FF66]/30">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#00FF66] animate-pulse-subtle" />
+                  <span className="font-semibold tracking-wider">STORE_ONLINE</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Terminal Window Content - Split-Pane Architecture */}
+            <div className="p-6 sm:p-8 lg:p-10">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+                {/* LEFT COLUMN: Human-First Mission & Clear Navigation (7 Cols) */}
+                <div className="lg:col-span-7 space-y-6">
+                  {/* Boot command prompt */}
+                  <div className="space-y-1">
+                    <TerminalPrompt
+                      user="guest"
+                      host="insideunderground.com"
+                      path="~"
+                      command="./welcome.sh --mode=public"
+                    />
                   </div>
 
-                  <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold tracking-tight text-[#FFFFFF] leading-tight font-mono">
-                    INSIDE UNDERGROUND
-                  </h1>
+                  {/* Main Headline & Subtitle with Cryptographic Decryption Scramble */}
+                  <div className="space-y-3">
+                    <div className="inline-flex flex-wrap items-center gap-2 text-xs font-mono">
+                      <div className="inline-flex items-center gap-1.5 text-[#00FF66] text-xs sm:text-sm font-mono font-bold tracking-wider uppercase bg-[#00FF66]/10 px-3 py-1 rounded border border-[#00FF66]/20">
+                        <span className="h-2 w-2 rounded-full bg-[#00FF66]" />
+                        <span>VERIFIED DIGITAL PRODUCTS // INSTANT CRYPTO CHECKOUT</span>
+                      </div>
+                      <span className="hidden xl:inline-block text-[11px] text-[#737373] bg-[#141414] border border-[#222222] px-2 py-0.5 rounded">
+                        CIPHER: AES-GCM-256
+                      </span>
+                    </div>
 
-                  <p className="text-base sm:text-lg text-[#00FF66] font-mono font-semibold tracking-wide">
-                    // The Private Marketplace for Premium Digital Products
-                  </p>
-                </div>
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold tracking-tight text-[#FFFFFF] leading-tight font-mono">
+                      <DecryptedText
+                        text="INSIDE UNDERGROUND"
+                        className="text-white hover:text-[#00FF66] transition-colors"
+                        speed={35}
+                        maxIterations={9}
+                        triggerOnHover={true}
+                      />
+                    </h1>
+
+                    <p className="text-base sm:text-lg text-[#00FF66] font-mono font-semibold tracking-wide">
+                      // The Private Marketplace for Premium Digital Products
+                    </p>
+                  </div>
 
                 {/* Value Proposition Description - High Contrast, Legible Typography */}
                 <p className="text-sm sm:text-base text-[#EDEDED] leading-relaxed max-w-xl font-sans font-normal">
@@ -577,6 +629,7 @@ export function HeroSection({
               </div>
             </div>
           </div>
+          </LaserBorder>
         </motion.div>
       </div>
     </section>
