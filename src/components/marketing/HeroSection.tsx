@@ -263,7 +263,7 @@ export function HeroSection({
                 <p className="text-sm sm:text-base text-[#EDEDED] leading-relaxed max-w-xl font-sans font-normal">
                   Buy verified developer tools, production security kits, and cloud infrastructure templates.
                   Pay privately with cryptocurrency—<strong className="text-[#FFFFFF] font-semibold">zero tracking cookies</strong>,
-                  no personal information required, and <strong className="text-[#00FF66] font-semibold">instant file download</strong>.
+                  no banking details or financial KYC required, and <strong className="text-[#00FF66] font-semibold">instant file download</strong>.
                 </p>
 
                 {/* 3 Core Guarantee Badges - Clear, High-Contrast Plain English */}
