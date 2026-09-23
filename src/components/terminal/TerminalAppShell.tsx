@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils'
 import { TerminalSidebar, type SidebarNavItem } from '@/components/navigation/TerminalSidebar'
 import { TerminalNavbar } from '@/components/navigation/TerminalNavbar'
 import { TerminalHeader } from '@/components/terminal/TerminalHeader'
+import { Footer } from '@/components/marketing/Footer'
 
 export interface TerminalAppShellProps extends React.HTMLAttributes<HTMLDivElement> {
   mode?: 'authenticated' | 'public'
@@ -57,20 +58,7 @@ export function TerminalAppShell({
           onRegisterClick={onRegisterClick}
         />
         <main className="flex-1">{children}</main>
-        <footer className="border-t border-[#1E1E1E] bg-[#070707] py-6 font-mono text-xs text-[#525252]">
-          <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-4 px-4 sm:px-8 lg:px-12">
-            <div className="flex items-center gap-2">
-              <span className="text-[#00FF66] font-bold">&gt;</span>
-              <span className="text-[#EDEDED]">INSIDE_UNDERGROUND</span>
-              <span>// SERVERLESS CRYPTO MARKETPLACE</span>
-            </div>
-            <div className="flex items-center gap-4 text-[11px]">
-              <span>NODE: FIREBASE_FUNCTIONS</span>
-              <span>VAULT: NOWPAYMENTS_IPN</span>
-              <span className="text-[#00FF66]">ALL_SYSTEMS_OPERATIONAL</span>
-            </div>
-          </div>
-        </footer>
+        <Footer onNavigate={(path) => onNavigate?.(path)} />
       </div>
     )
   }
@@ -156,10 +144,10 @@ export function TerminalAppShell({
           <div className="flex items-center gap-3">
             <span className="text-[#00FF66] font-semibold">&gt; _</span>
             <span className="hidden sm:inline">STATE: SYNCHRONIZED</span>
-            <span>AUTH: FIREBASE</span>
+            <span>AUTH: ENCRYPTED_SESSION</span>
           </div>
           <div className="flex items-center gap-3">
-            <span>FIRESTORE: CONNECTED</span>
+            <span>LEDGER: CONNECTED</span>
             <span className="text-[#00FF66]">SESSION: ACTIVE</span>
           </div>
         </div>
