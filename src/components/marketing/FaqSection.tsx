@@ -146,16 +146,11 @@ const FAQ_ITEMS: FaqItem[] = [
 export function FaqSection() {
   const [selectedCategory, setSelectedCategory] = React.useState<FaqCategory>('all')
   const [searchQuery, setSearchQuery] = React.useState('')
-  const [openIds, setOpenIds] = React.useState<Record<string, boolean>>({
-    'faq-01': true,
-  })
+  const [activeId, setActiveId] = React.useState<string | null>('faq-01')
   const [showTechSpec, setShowTechSpec] = React.useState<Record<string, boolean>>({})
 
   const toggleFaq = (id: string) => {
-    setOpenIds((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }))
+    setActiveId((prev) => (prev === id ? null : id))
   }
 
   const toggleTechSpec = (id: string, e: React.MouseEvent) => {
@@ -318,7 +313,7 @@ export function FaqSection() {
             </div>
           ) : (
             filteredItems.map((item) => {
-              const isOpen = Boolean(openIds[item.id])
+              const isOpen = activeId === item.id
               const isTechOpen = Boolean(showTechSpec[item.id])
 
               const cardContent = (
