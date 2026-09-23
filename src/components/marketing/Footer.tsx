@@ -76,8 +76,12 @@ export function Footer({ onNavigate }: FooterProps) {
           {/* Column 1: Brand Identity & Mission (4 cols) */}
           <div className="lg:col-span-4 space-y-5">
             <div className="flex items-center gap-3">
-              <div className="h-9 w-9 rounded-lg bg-[#00FF66]/10 border border-[#00FF66]/30 flex items-center justify-center font-mono font-black text-sm text-[#00FF66] shadow-[0_0_15px_rgba(0,255,102,0.2)]">
-                IU
+              <div className="flex h-9 w-9 items-center justify-center rounded border border-[#1E1E1E] bg-[#050505] overflow-hidden p-1 shadow-[0_0_15px_rgba(0,255,102,0.2)]">
+                <img
+                  src="/assets/inside-underground-logo.png"
+                  alt="Inside Underground Logo"
+                  className="h-full w-full object-contain rounded-sm"
+                />
               </div>
               <div className="space-y-0.5">
                 <span className="font-mono text-sm font-bold text-white tracking-wider block">
