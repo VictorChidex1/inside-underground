@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Mail,
@@ -14,7 +14,9 @@ import {
 } from "lucide-react";
 import { signIn } from "@/services/auth";
 import { GoogleLinkDialog } from "@/components/auth/GoogleLinkDialog";
+import { Honeypot } from "@/components/auth/Honeypot";
 import { useGoogleSignIn } from "@/components/auth/useGoogleSignIn";
+import { SESSION_EXPIRED_PARAM } from "@/config/session";
 import { LaserBorder } from "@/components/ui/LaserBorder";
 import { DecryptedText } from "@/components/ui/DecryptedText";
 
@@ -84,16 +86,25 @@ const MEMBER_BENEFITS = [
 export function LoginPage() {
   const navigate = useNavigate();
   const google = useGoogleSignIn();
+  const [searchParams] = useSearchParams();
+  const sessionExpired = searchParams.get(SESSION_EXPIRED_PARAM) === "1";
 
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [showPassword, setShowPassword] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
   const [pending, setPending] = React.useState(false);
+  const [honeypot, setHoneypot] = React.useState("");
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setError(null);
+
+    // Honeypot trap: silently ignore bot submissions.
+    if (honeypot) {
+      return;
+    }
+
     setPending(true);
     try {
       await signIn(email, password);
@@ -227,8 +238,29 @@ export function LoginPage() {
                 </p>
               </div>
 
+              {/* Session Expired Notice */}
+              <AnimatePresence>
+                {sessionExpired && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    className="p-3 rounded-xl border border-[#FFB800]/30 bg-[#FFB800]/10 text-xs text-[#FFC84D] flex items-start gap-2.5"
+                  >
+                    <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
+                    <span className="leading-snug">
+                      <span className="font-bold uppercase">Session expired.</span>{" "}
+                      Your session ended for security. Please sign in again to
+                      continue.
+                    </span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
               {/* Form */}
               <form onSubmit={handleSubmit} className="space-y-4">
+                <Honeypot value={honeypot} onChange={setHoneypot} />
+
                 {/* Email Address */}
                 <div className="space-y-1.5">
                   <label className="text-xs font-bold font-mono text-[#737373] uppercase tracking-wider block">

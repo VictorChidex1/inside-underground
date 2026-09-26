@@ -1,17 +1,57 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Users: self-service profile only. Clients may create/read their own
-    // profile, but accountStatus is server-controlled: it may only be created
-    // as "pending_payment" and never modified by the client.
+    function isSelf(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    function isValidUsername(username) {
+      return username is string
+        && username.size() >= 3
+        && username.size() <= 24
+        && username.matches('^[A-Za-z0-9_.-]+$');
+    }
+
+    function isValidEmail(email) {
+      return email is string
+        && email.matches('^[^@]+@[^@]+\\.[^@]+$');
+    }
+
+    // A client-created user profile must be bound to the authenticated
+    // identity and carry only the expected shape and values. In particular
+    // accountStatus may only ever be created as "pending_payment".
+    function isAuthorizedProfile() {
+      return isSelf(request.resource.data.uid)
+        && request.resource.data.email == request.auth.token.email
+        && request.resource.data.role == 'customer'
+        && request.resource.data.accountStatus == 'pending_payment'
+        && isValidUsername(request.resource.data.username)
+        && isValidEmail(request.resource.data.email)
+        && request.resource.data.keys().hasOnly([
+          'uid',
+          'email',
+          'username',
+          'role',
+          'accountStatus',
+          'createdAt',
+          'updatedAt',
+        ]);
+    }
+
+    // Users: self-service profile only. accountStatus is server-controlled:
+    // it may only be created as "pending_payment" and never modified.
     match /users/{uid} {
-      allow read: if request.auth != null && request.auth.uid == uid;
-      allow create: if request.auth != null
-        && request.auth.uid == uid
-        && request.resource.data.accountStatus == 'pending_payment';
-      allow update: if request.auth != null
-        && request.auth.uid == uid
-        && !('accountStatus' in request.resource.data.diff(resource.data).affectedKeys());
+      allow read: if isSelf(uid);
+      allow create: if isAuthorizedProfile();
+      allow update: if isSelf(uid)
+        && !('accountStatus' in request.resource.data.diff(resource.data).affectedKeys())
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          'email',
+          'username',
+          'updatedAt',
+        ])
+        && isValidUsername(request.resource.data.username)
+        && isValidEmail(request.resource.data.email);
       allow delete: if false;
     }
 

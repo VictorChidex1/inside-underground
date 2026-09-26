@@ -1,5 +1,10 @@
 import { initializeApp, type FirebaseApp } from 'firebase/app'
-import { getAuth, type Auth } from 'firebase/auth'
+import {
+  browserSessionPersistence,
+  getAuth,
+  setPersistence,
+  type Auth,
+} from 'firebase/auth'
 import { getFirestore, type Firestore } from 'firebase/firestore'
 
 export interface FirebaseConfig {
@@ -42,3 +47,10 @@ export const firebaseConfig: FirebaseConfig = getFirebaseConfig()
 export const app: FirebaseApp = initializeApp(firebaseConfig)
 export const auth: Auth = getAuth(app)
 export const db: Firestore = getFirestore(app)
+
+// Banking-style temporary session: auth tokens live in sessionStorage so they
+// are wiped when the tab closes. Same-tab reloads keep the session; reopening
+// the site requires signing in again.
+void setPersistence(auth, browserSessionPersistence).catch((error) => {
+  console.error('Failed to configure browser session persistence:', error)
+})

@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { registerUser } from "@/services/auth";
 import { GoogleLinkDialog } from "@/components/auth/GoogleLinkDialog";
+import { Honeypot } from "@/components/auth/Honeypot";
 import { validatePassword } from "@/components/auth/passwordStrength";
 import { useGoogleSignIn } from "@/components/auth/useGoogleSignIn";
 import { LaserBorder } from "@/components/ui/LaserBorder";
@@ -99,6 +100,7 @@ export function RegisterPage() {
   const [error, setError] = React.useState<string | null>(null);
   const [pending, setPending] = React.useState(false);
   const [created, setCreated] = React.useState(false);
+  const [honeypot, setHoneypot] = React.useState("");
 
   const passwordValidation = React.useMemo(() => {
     return validatePassword(password);
@@ -110,6 +112,13 @@ export function RegisterPage() {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setError(null);
+
+    // Honeypot trap: bots that autofill the hidden field are silently given
+    // the success screen but no account is created.
+    if (honeypot) {
+      setCreated(true);
+      return;
+    }
 
     if (!USERNAME_PATTERN.test(username)) {
       setError(
@@ -341,6 +350,8 @@ export function RegisterPage() {
 
               {/* Form */}
               <form onSubmit={handleSubmit} className="space-y-4">
+                <Honeypot value={honeypot} onChange={setHoneypot} />
+
                 {/* Username */}
                 <div className="space-y-1.5">
                   <label className="text-xs font-bold font-mono text-[#737373] uppercase tracking-wider block">

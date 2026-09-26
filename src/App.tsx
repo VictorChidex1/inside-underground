@@ -2,6 +2,7 @@ import { Routes, Route, useNavigate, useLocation, Outlet } from 'react-router-do
 import { TerminalAppShell } from '@/components/terminal/TerminalAppShell'
 import { ScrollToTop } from '@/components/navigation/ScrollToTop'
 import { useAuth } from '@/hooks/useAuth'
+import { useSessionGuard } from '@/hooks/useSessionGuard'
 import { HomePage } from '@/pages/Home'
 import { RegisterPage } from '@/pages/Register'
 import { LoginPage } from '@/pages/Login'
@@ -53,6 +54,8 @@ const PLACEHOLDER_ROUTES: Array<{ path: string; title: string; step: string }> =
 ]
 
 function App() {
+  useSessionGuard()
+
   return (
     <>
       <ScrollToTop />

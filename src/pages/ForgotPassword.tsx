@@ -13,6 +13,7 @@ import {
   Clock,
 } from "lucide-react";
 import { resetPassword } from "@/services/auth";
+import { Honeypot } from "@/components/auth/Honeypot";
 import { LaserBorder } from "@/components/ui/LaserBorder";
 import { DecryptedText } from "@/components/ui/DecryptedText";
 
@@ -59,6 +60,7 @@ export function ForgotPasswordPage() {
   const [error, setError] = React.useState<string | null>(null);
   const [pending, setPending] = React.useState(false);
   const [resendCooldown, setResendCooldown] = React.useState(0);
+  const [honeypot, setHoneypot] = React.useState("");
 
   // Timer countdown for resending email
   React.useEffect(() => {
@@ -72,6 +74,13 @@ export function ForgotPasswordPage() {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setError(null);
+
+    // Honeypot trap: show the "sent" state but never dispatch an email,
+    // preventing automated recovery-link email bombing.
+    if (honeypot) {
+      setSent(true);
+      return;
+    }
 
     const trimmedEmail = email.trim();
     if (!trimmedEmail) {
@@ -248,6 +257,8 @@ export function ForgotPasswordPage() {
 
                     {/* Form */}
                     <form onSubmit={handleSubmit} className="space-y-4">
+                      <Honeypot value={honeypot} onChange={setHoneypot} />
+
                       {/* Email Address */}
                       <div className="space-y-1.5">
                         <label className="text-xs font-bold font-mono text-[#A3A3A3] uppercase tracking-wider block">
