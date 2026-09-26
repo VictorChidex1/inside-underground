@@ -58,7 +58,7 @@ export function TerminalNavbar({
               className="h-full w-full object-contain rounded-sm"
             />
           </div>
-          <span className="font-semibold tracking-tight text-sm text-[#EDEDED]">
+          <span className="font-semibold tracking-tight text-xs sm:text-sm text-[#EDEDED] truncate max-w-[125px] sm:max-w-none">
             INSIDE_UNDERGROUND
           </span>
           <span className="hidden sm:inline-block text-[10px] text-[#00FF66] bg-[#00FF66]/10 px-1.5 py-0.5 rounded border border-[#00FF66]/20">
@@ -86,7 +86,7 @@ export function TerminalNavbar({
           })}
         </div>
 
-        {/* Auth CTA Actions */}
+        {/* Desktop Auth CTA Actions */}
         <div className="hidden md:flex items-center gap-3">
           {isAuthenticated ? (
             <Button
@@ -117,12 +117,48 @@ export function TerminalNavbar({
           )}
         </div>
 
-        {/* Mobile Hamburger Toggle */}
-        <div className="flex md:hidden items-center gap-2">
+        {/* Mobile Header Suite (Visible directly on mobile without menu click) */}
+        <div className="flex md:hidden items-center gap-1.5 sm:gap-2">
+          {isAuthenticated ? (
+            <button
+              type="button"
+              onClick={() => onNavigate?.('/account')}
+              className="px-2.5 py-1.5 rounded-lg border border-[#00FF66]/40 bg-[#00FF66]/10 text-[#00FF66] text-[11px] font-mono font-bold hover:bg-[#00FF66] hover:text-black transition-all"
+            >
+              DASHBOARD
+            </button>
+          ) : (
+            <>
+              <button
+                type="button"
+                onClick={onLoginClick}
+                className="px-2 py-1 text-xs font-mono font-bold text-[#EDEDED] hover:text-[#00FF66] transition-colors cursor-pointer"
+              >
+                LOGIN
+              </button>
+              <button
+                type="button"
+                onClick={onRegisterClick}
+                className="relative overflow-hidden px-3 py-1.5 rounded-lg bg-[#00FF66] hover:bg-[#00E55C] text-black font-sans font-black text-[11px] tracking-wider uppercase shadow-[0_0_15px_rgba(0,255,102,0.35)] hover:shadow-[0_0_22px_rgba(0,255,102,0.5)] transition-all flex items-center gap-1 group cursor-pointer"
+              >
+                {/* Traveling light sweep shimmer */}
+                <div
+                  className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none opacity-40"
+                  style={{
+                    background:
+                      'linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent)',
+                  }}
+                />
+                <span className="relative z-10">REGISTER</span>
+              </button>
+            </>
+          )}
+
+          {/* Mobile Hamburger Toggle */}
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="rounded border border-[#1E1E1E] p-1.5 text-[#EDEDED] hover:text-[#00FF66] focus:outline-none"
+            className="rounded-lg border border-[#222222] bg-[#0C0C0C] p-1.5 text-[#EDEDED] hover:text-[#00FF66] hover:border-[#00FF66]/40 transition-all focus:outline-none cursor-pointer shrink-0 ml-0.5"
             aria-label="Toggle Navigation Menu"
           >
             {mobileMenuOpen ? (
