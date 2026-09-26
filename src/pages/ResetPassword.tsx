@@ -2,6 +2,8 @@ import * as React from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { getResetEmail, setNewPassword } from '@/services/auth'
 import { AuthShell } from '@/components/auth/AuthShell'
+import { PasswordStrengthIndicator } from '@/components/auth/PasswordStrengthIndicator'
+import { validatePassword } from '@/components/auth/passwordStrength'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
@@ -44,8 +46,10 @@ export function ResetPasswordPage() {
     }
     setError(null)
 
-    if (password.length < 6) {
-      setError('Password must be at least 6 characters.')
+    if (!validatePassword(password).valid) {
+      setError(
+        'Password must be at least 8 characters with one uppercase letter and one symbol.'
+      )
       return
     }
     if (password !== confirm) {
@@ -112,6 +116,7 @@ export function ResetPasswordPage() {
             onChange={(event) => setPassword(event.target.value)}
             autoComplete="new-password"
           />
+          <PasswordStrengthIndicator password={password} />
           <Input
             type="password"
             prefixText="#"

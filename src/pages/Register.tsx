@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { registerUser } from '@/services/auth'
 import { AuthShell } from '@/components/auth/AuthShell'
 import { GoogleLinkDialog } from '@/components/auth/GoogleLinkDialog'
+import { PasswordStrengthIndicator } from '@/components/auth/PasswordStrengthIndicator'
+import { validatePassword } from '@/components/auth/passwordStrength'
 import { useGoogleSignIn } from '@/components/auth/useGoogleSignIn'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -45,8 +47,10 @@ export function RegisterPage() {
       setError('Username must be 3-24 characters using letters, numbers, _ . or -.')
       return
     }
-    if (password.length < 6) {
-      setError('Password must be at least 6 characters.')
+    if (!validatePassword(password).valid) {
+      setError(
+        'Password must be at least 8 characters with one uppercase letter and one symbol.'
+      )
       return
     }
     if (password !== confirm) {
@@ -127,6 +131,7 @@ export function RegisterPage() {
           onChange={(event) => setPassword(event.target.value)}
           autoComplete="new-password"
         />
+        <PasswordStrengthIndicator password={password} />
         <Input
           type="password"
           prefixText="#"
