@@ -1,0 +1,39 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Users: self-service profile only. Clients may create/read their own
+    // profile, but accountStatus is server-controlled: it may only be created
+    // as "pending_payment" and never modified by the client.
+    match /users/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow create: if request.auth != null
+        && request.auth.uid == uid
+        && request.resource.data.accountStatus == 'pending_payment';
+      allow update: if request.auth != null
+        && request.auth.uid == uid
+        && !('accountStatus' in request.resource.data.diff(resource.data).affectedKeys());
+      allow delete: if false;
+    }
+
+    // Products: publicly readable, never client-writable.
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Server-controlled collections: deny all client access. All writes flow
+    // through trusted Firebase Cloud Functions.
+    match /orders/{orderId} {
+      allow read, write: if false;
+    }
+    match /payments/{paymentId} {
+      allow read, write: if false;
+    }
+    match /paymentEvents/{eventId} {
+      allow read, write: if false;
+    }
+    match /entitlements/{entitlementId} {
+      allow read, write: if false;
+    }
+  }
+}

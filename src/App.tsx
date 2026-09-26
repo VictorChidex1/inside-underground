@@ -1,13 +1,19 @@
 import { Routes, Route, useNavigate, useLocation, Outlet } from 'react-router-dom'
 import { TerminalAppShell } from '@/components/terminal/TerminalAppShell'
 import { ScrollToTop } from '@/components/navigation/ScrollToTop'
-import { ScrollToTopButton } from '@/components/navigation/ScrollToTopButton'
+import { useAuth } from '@/hooks/useAuth'
 import { HomePage } from '@/pages/Home'
+import { RegisterPage } from '@/pages/Register'
+import { LoginPage } from '@/pages/Login'
+import { SetupProfilePage } from '@/pages/SetupProfile'
+import { ForgotPasswordPage } from '@/pages/ForgotPassword'
+import { ResetPasswordPage } from '@/pages/ResetPassword'
 import { PlaceholderPage } from '@/pages/PlaceholderPage'
 
 function PublicLayout() {
   const navigate = useNavigate()
   const location = useLocation()
+  const { user } = useAuth()
 
   return (
     <TerminalAppShell
@@ -16,6 +22,7 @@ function PublicLayout() {
       onNavigate={(path) => navigate(path)}
       onRegisterClick={() => navigate('/register')}
       onLoginClick={() => navigate('/login')}
+      isAuthenticated={!!user}
     >
       <Outlet />
     </TerminalAppShell>
@@ -36,12 +43,8 @@ function HomeRoute() {
 
 const PLACEHOLDER_ROUTES: Array<{ path: string; title: string; step: string }> = [
   { path: '/browse', title: 'BROWSE_PRODUCTS', step: 'Step 6' },
-  { path: '/register', title: 'REGISTER', step: 'Step 7' },
-  { path: '/login', title: 'LOGIN', step: 'Step 7' },
   { path: '/account', title: 'ACCOUNT', step: 'Step 15' },
   { path: '/support', title: 'SUPPORT', step: 'Step 16' },
-  { path: '/forgot-password', title: 'FORGOT_PASSWORD', step: 'Step 7' },
-  { path: '/reset-password', title: 'RESET_PASSWORD', step: 'Step 7' },
   { path: '/terms', title: 'TERMS', step: 'Step 5' },
   { path: '/privacy', title: 'PRIVACY', step: 'Step 5' },
   { path: '/payment/pending', title: 'PAYMENT_PENDING', step: 'Step 9' },
@@ -53,10 +56,14 @@ function App() {
   return (
     <>
       <ScrollToTop />
-      <ScrollToTopButton />
       <Routes>
         <Route element={<PublicLayout />}>
           <Route index element={<HomeRoute />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/setup-profile" element={<SetupProfilePage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
           {PLACEHOLDER_ROUTES.map((route) => (
             <Route
               key={route.path}

@@ -13,6 +13,7 @@ export interface TerminalAppShellProps extends React.HTMLAttributes<HTMLDivEleme
   onNavigate?: (path: string, item?: SidebarNavItem) => void
   onLoginClick?: () => void
   onRegisterClick?: () => void
+  isAuthenticated?: boolean
   userEmail?: string
   accountStatus?: string
   currentPathDisplay?: string
@@ -26,6 +27,7 @@ export function TerminalAppShell({
   onNavigate,
   onLoginClick,
   onRegisterClick,
+  isAuthenticated = false,
   userEmail = 'operator@underground.net',
   accountStatus = 'ACTIVE',
   currentPathDisplay,
@@ -53,7 +55,7 @@ export function TerminalAppShell({
         <TerminalNavbar
           activePath={activePath}
           onNavigate={(path) => onNavigate?.(path)}
-          isAuthenticated={false}
+          isAuthenticated={isAuthenticated}
           onLoginClick={onLoginClick}
           onRegisterClick={onRegisterClick}
         />
