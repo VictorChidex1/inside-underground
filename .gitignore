@@ -29,6 +29,9 @@ dist-ssr
 *.sln
 *.sw?
 
+# Firebase CLI local cache
+.firebase/
+
 # Project documentation & internal specs (local only, never pushed to git)
 projects explanations/
 Project explanations/
