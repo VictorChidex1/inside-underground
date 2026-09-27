@@ -21,6 +21,12 @@ export function Footer({ onNavigate }: FooterProps) {
 
   const handleNav = (target: string) => {
     if (target.startsWith('#')) {
+      // Route to the home page section via the router so it works from any
+      // page; ScrollToTop handles the smooth scroll once Home renders.
+      if (onNavigate) {
+        onNavigate(`/${target}`)
+        return
+      }
       const element = document.getElementById(target.replace('#', ''))
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' })
