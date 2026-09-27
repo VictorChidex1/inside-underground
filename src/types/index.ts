@@ -25,6 +25,11 @@ export interface UserProfile {
 
 export type ProductStatus = 'active' | 'inactive'
 
+export interface ProductFileItem {
+  name: string
+  desc: string
+}
+
 export interface Product {
   id: string
   name: string
@@ -35,6 +40,11 @@ export interface Product {
   currency: string
   status: ProductStatus
   deliveryType: string
+  code?: string
+  fileSize?: string
+  features?: string[]
+  files?: ProductFileItem[]
+  platforms?: string[]
   createdAt: Timestamp
   updatedAt: Timestamp
 }

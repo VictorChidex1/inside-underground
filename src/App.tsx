@@ -9,6 +9,8 @@ import { LoginPage } from '@/pages/Login'
 import { SetupProfilePage } from '@/pages/SetupProfile'
 import { ForgotPasswordPage } from '@/pages/ForgotPassword'
 import { ResetPasswordPage } from '@/pages/ResetPassword'
+import { BrowsePage } from '@/pages/Browse'
+import { ProductDetailsPage } from '@/pages/ProductDetails'
 import { PlaceholderPage } from '@/pages/PlaceholderPage'
 
 function PublicLayout() {
@@ -43,7 +45,6 @@ function HomeRoute() {
 }
 
 const PLACEHOLDER_ROUTES: Array<{ path: string; title: string; step: string }> = [
-  { path: '/browse', title: 'BROWSE_PRODUCTS', step: 'Step 6' },
   { path: '/account', title: 'ACCOUNT', step: 'Step 15' },
   { path: '/support', title: 'SUPPORT', step: 'Step 16' },
   { path: '/terms', title: 'TERMS', step: 'Step 5' },
@@ -67,6 +68,8 @@ function App() {
           <Route path="/setup-profile" element={<SetupProfilePage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
+          <Route path="/browse" element={<BrowsePage />} />
+          <Route path="/product/:productId" element={<ProductDetailsPage />} />
           {PLACEHOLDER_ROUTES.map((route) => (
             <Route
               key={route.path}
@@ -75,8 +78,8 @@ function App() {
             />
           ))}
           <Route
-            path="/product/:productId"
-            element={<PlaceholderPage title="PRODUCT_DETAILS" step="Step 6" />}
+            path="/checkout"
+            element={<PlaceholderPage title="CHECKOUT" step="Step 8" />}
           />
           <Route
             path="/checkout/:orderId"
