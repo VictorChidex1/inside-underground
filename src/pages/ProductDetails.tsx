@@ -17,9 +17,11 @@ import {
   Key,
   Terminal,
   Cpu,
+  AlertCircle,
 } from "lucide-react";
 import { useProducts } from "@/hooks/useProducts";
 import { useAuth } from "@/hooks/useAuth";
+import { CheckoutApiError, createOrder } from "@/services/api";
 import { LaserBorder } from "@/components/ui/LaserBorder";
 import { DecryptedText } from "@/components/ui/DecryptedText";
 import { formatProductPrice, productDisplayCode } from "@/utils/format";
@@ -100,18 +102,36 @@ export function ProductDetailsPage() {
   const [activeTab, setActiveTab] = React.useState<
     "overview" | "files" | "specs"
   >("overview")
+  const [purchasePending, setPurchasePending] = React.useState(false)
+  const [purchaseError, setPurchaseError] = React.useState<string | null>(null)
 
   const product = React.useMemo(
     () => products.find((item) => item.id === productId),
     [products, productId]
   )
 
-  const handlePurchase = () => {
+  const handlePurchase = async () => {
     if (!user) {
       navigate("/login")
       return
     }
-    navigate("/checkout")
+    if (!product) {
+      return
+    }
+    setPurchaseError(null)
+    setPurchasePending(true)
+    try {
+      const { orderId } = await createOrder(product.id)
+      navigate(`/checkout/${orderId}`)
+    } catch (caught) {
+      if (caught instanceof CheckoutApiError && caught.code === "PAYMENT_BACKEND_PENDING") {
+        setPurchaseError("PAYMENT_BACKEND_PENDING — checkout functions arrive in Step 9.")
+      } else {
+        setPurchaseError("Unable to start checkout. Please try again.")
+      }
+    } finally {
+      setPurchasePending(false)
+    }
   }
 
   if (loading) {
@@ -512,15 +532,26 @@ export function ProductDetailsPage() {
 
               {/* Purchase Action Button */}
               <div className="space-y-3 pt-1">
+                {purchaseError && (
+                  <div className="flex items-start gap-2.5 rounded-xl border border-[#FFB800]/30 bg-[#FFB800]/10 p-3 text-xs text-[#FFC84D] font-mono">
+                    <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
+                    <span>{purchaseError}</span>
+                  </div>
+                )}
                 <button
                   type="button"
                   onClick={handlePurchase}
-                  className="relative w-full py-4 px-6 rounded-xl font-mono text-xs font-bold uppercase tracking-wider text-black bg-[#00FF66] hover:bg-[#00FF66]/90 transition-all duration-300 shadow-[0_0_30px_rgba(0,255,102,0.35)] hover:shadow-[0_0_40px_rgba(0,255,102,0.5)] cursor-pointer flex items-center justify-center gap-2 overflow-hidden group"
+                  disabled={purchasePending}
+                  className="relative w-full py-4 px-6 rounded-xl font-mono text-xs font-bold uppercase tracking-wider text-black bg-[#00FF66] hover:bg-[#00FF66]/90 transition-all duration-300 shadow-[0_0_30px_rgba(0,255,102,0.35)] hover:shadow-[0_0_40px_rgba(0,255,102,0.5)] cursor-pointer flex items-center justify-center gap-2 overflow-hidden group disabled:opacity-50"
                 >
                   {/* Continuous traveling shimmer sweep */}
                   <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
                   <span>
-                    {user ? "PURCHASE ASSET NOW" : "SIGN IN TO PURCHASE"}
+                    {purchasePending
+                      ? "INITIALIZING CHECKOUT..."
+                      : user
+                        ? "PURCHASE ASSET NOW"
+                        : "SIGN IN TO PURCHASE"}
                   </span>
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </button>

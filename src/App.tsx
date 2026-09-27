@@ -1,6 +1,7 @@
-import { Routes, Route, useNavigate, useLocation, Outlet } from 'react-router-dom'
+import { Routes, Route, useNavigate, useLocation, Outlet, Navigate } from 'react-router-dom'
 import { TerminalAppShell } from '@/components/terminal/TerminalAppShell'
 import { ScrollToTop } from '@/components/navigation/ScrollToTop'
+import { ActivationBanner } from '@/components/auth/ActivationBanner'
 import { useAuth } from '@/hooks/useAuth'
 import { useSessionGuard } from '@/hooks/useSessionGuard'
 import { HomePage } from '@/pages/Home'
@@ -11,6 +12,7 @@ import { ForgotPasswordPage } from '@/pages/ForgotPassword'
 import { ResetPasswordPage } from '@/pages/ResetPassword'
 import { BrowsePage } from '@/pages/Browse'
 import { ProductDetailsPage } from '@/pages/ProductDetails'
+import { CheckoutPage } from '@/pages/Checkout'
 import { PlaceholderPage } from '@/pages/PlaceholderPage'
 
 function PublicLayout() {
@@ -19,16 +21,19 @@ function PublicLayout() {
   const { user } = useAuth()
 
   return (
-    <TerminalAppShell
-      mode="public"
-      activePath={location.pathname}
-      onNavigate={(path) => navigate(path)}
-      onRegisterClick={() => navigate('/register')}
-      onLoginClick={() => navigate('/login')}
-      isAuthenticated={!!user}
-    >
-      <Outlet />
-    </TerminalAppShell>
+    <>
+      <ActivationBanner />
+      <TerminalAppShell
+        mode="public"
+        activePath={location.pathname}
+        onNavigate={(path) => navigate(path)}
+        onRegisterClick={() => navigate('/register')}
+        onLoginClick={() => navigate('/login')}
+        isAuthenticated={!!user}
+      >
+        <Outlet />
+      </TerminalAppShell>
+    </>
   )
 }
 
@@ -79,12 +84,9 @@ function App() {
           ))}
           <Route
             path="/checkout"
-            element={<PlaceholderPage title="CHECKOUT" step="Step 8" />}
+            element={<Navigate to="/browse" replace />}
           />
-          <Route
-            path="/checkout/:orderId"
-            element={<PlaceholderPage title="CHECKOUT" step="Step 8" />}
-          />
+          <Route path="/checkout/:orderId" element={<CheckoutPage />} />
           <Route
             path="*"
             element={

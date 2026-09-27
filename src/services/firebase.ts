@@ -6,6 +6,7 @@ import {
   type Auth,
 } from 'firebase/auth'
 import { getFirestore, type Firestore } from 'firebase/firestore'
+import { getFunctions, type Functions } from 'firebase/functions'
 
 export interface FirebaseConfig {
   apiKey: string
@@ -47,6 +48,7 @@ export const firebaseConfig: FirebaseConfig = getFirebaseConfig()
 export const app: FirebaseApp = initializeApp(firebaseConfig)
 export const auth: Auth = getAuth(app)
 export const db: Firestore = getFirestore(app)
+export const functions: Functions = getFunctions(app)
 
 // Banking-style temporary session: auth tokens live in sessionStorage so they
 // are wiped when the tab closes. Same-tab reloads keep the session; reopening

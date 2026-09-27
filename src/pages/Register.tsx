@@ -16,6 +16,7 @@ import {
   ShoppingBag,
 } from "lucide-react";
 import { registerUser } from "@/services/auth";
+import { CheckoutApiError, createActivationOrder } from "@/services/api";
 import { GoogleLinkDialog } from "@/components/auth/GoogleLinkDialog";
 import { Honeypot } from "@/components/auth/Honeypot";
 import { validatePassword } from "@/components/auth/passwordStrength";
@@ -101,6 +102,8 @@ export function RegisterPage() {
   const [pending, setPending] = React.useState(false);
   const [created, setCreated] = React.useState(false);
   const [honeypot, setHoneypot] = React.useState("");
+  const [activating, setActivating] = React.useState(false);
+  const [activationError, setActivationError] = React.useState<string | null>(null);
 
   const passwordValidation = React.useMemo(() => {
     return validatePassword(password);
@@ -152,6 +155,28 @@ export function RegisterPage() {
 
   // Success Screen After Registration
   if (created) {
+    const handleActivate = async () => {
+      setActivationError(null);
+      setActivating(true);
+      try {
+        const { orderId } = await createActivationOrder();
+        navigate(`/checkout/${orderId}`);
+      } catch (caught) {
+        if (
+          caught instanceof CheckoutApiError &&
+          caught.code === "PAYMENT_BACKEND_PENDING"
+        ) {
+          setActivationError(
+            "PAYMENT_BACKEND_PENDING — activation checkout arrives in Step 9.",
+          );
+        } else {
+          setActivationError("Unable to start activation. Please try again.");
+        }
+      } finally {
+        setActivating(false);
+      }
+    };
+
     return (
       <div className="min-h-[85vh] flex items-center justify-center px-4 py-12 bg-[#030303] relative overflow-hidden font-sans">
         {/* Ambient Glow */}
@@ -204,8 +229,17 @@ export function RegisterPage() {
             <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
               <button
                 type="button"
+                onClick={handleActivate}
+                disabled={activating}
+                className="w-full py-3 px-5 rounded-xl bg-[#00FF66] hover:bg-[#00E55C] text-black font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-[0_0_20px_rgba(0,255,102,0.3)] disabled:opacity-50"
+              >
+                <Zap className="h-3.5 w-3.5" />
+                <span>{activating ? "INITIALIZING..." : "ACTIVATE ACCOUNT ($28)"}</span>
+              </button>
+              <button
+                type="button"
                 onClick={() => navigate("/account")}
-                className="w-full py-3 px-5 rounded-xl bg-[#00FF66] hover:bg-[#00E55C] text-black font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-[0_0_20px_rgba(0,255,102,0.3)]"
+                className="w-full py-3 px-5 rounded-xl border border-[#222222] bg-[#111111] hover:bg-[#181818] text-[#EDEDED] font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span>VIEW MY ACCOUNT</span>
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -218,6 +252,16 @@ export function RegisterPage() {
                 <ShoppingBag className="h-3.5 w-3.5 text-[#00FF66]" />
                 <span>EXPLORE PRODUCTS</span>
               </button>
+            </div>
+
+            <div className="flex flex-col items-center gap-2">
+              <p className="text-[10px] font-mono text-[#525252]">
+                One-time ${"28.00"} activation fee. Unpaid accounts are removed after{" "}
+                {"7"} days.
+              </p>
+              {activationError && (
+                <p className="text-[10px] font-mono text-[#FFC84D]">{activationError}</p>
+              )}
             </div>
           </LaserBorder>
         </div>

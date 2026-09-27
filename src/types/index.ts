@@ -73,6 +73,14 @@ export interface Order {
   paidAt?: Timestamp
 }
 
+export interface CreateOrderResponse {
+  orderId: string
+}
+
+export interface CreateInvoiceResponse {
+  invoiceUrl: string
+}
+
 // ─── Payments ────────────────────────────────────────────────────────────
 
 export type NowPaymentsProvider =
