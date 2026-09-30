@@ -38,3 +38,8 @@ Project explanations/
 [Pp]roject* explanations/
 [Pp]rojects [Ee]xplanations/
 
+# Agent instructions, rules & local agent documentation (local only, never pushed to git)
+.agents/
+.agents
+
+
